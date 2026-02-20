@@ -1,4 +1,4 @@
-**Requisitos Funcionais — MaintSys**
+# Requisitos Funcionais — MaintSys
 
 - O sistema deve permitir o cadastro de técnicos especializados, armazenando informações como nome, especialização e credenciais de acesso, garantindo autenticação segura para uso nos terminais industriais.
     
