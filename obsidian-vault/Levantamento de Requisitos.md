@@ -27,7 +27,7 @@
 
 # Requisitos Não Funcionais — MaintSys
 
-**Desempenho
+**Desempenho**
 
 - A API deve responder às requisições em no máximo 5 segundos em condições normais de uso.
     
@@ -37,7 +37,7 @@
       
 
 
-**Segurança
+**Segurança**
 
 - O sistema deve autenticar os usuários via token JWT, garantindo que apenas usuários autorizados acessem os endpoints da API.
     
@@ -49,7 +49,7 @@
     
 
 
-**Manutenibilidade
+**Manutenibilidade**
 
 - O código deve seguir os padrões PSR-12 e princípios de Clean Code, garantindo legibilidade e facilidade de manutenção.
     
@@ -59,7 +59,7 @@
     
 
 
-**Portabilidade
+**Portabilidade**
 
 - A API deve ser consumível por qualquer cliente HTTP, como tablets industriais, aplicações web e Postman.
     
@@ -67,7 +67,7 @@
     
 
 
-**Entrega
+**Entrega**
 
 - O repositório no GitHub deve conter um arquivo README com instruções claras de instalação, configuração e execução do projeto.
     
@@ -77,7 +77,7 @@
     
 
 
-**Confiabilidade
+**Confiabilidade**
 
 - O sistema deve garantir a integridade referencial dos dados por meio das constraints do banco de dados MySQL e das relações definidas no Eloquent ORM.
     
