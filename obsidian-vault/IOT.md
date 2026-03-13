@@ -1,0 +1,3 @@
+- Sensores 
+- Atuadores
+- Controladores

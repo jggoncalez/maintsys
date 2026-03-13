@@ -1,0 +1,23 @@
+{
+	"nodes":[
+		{"id":"62824f324acbd244","type":"file","file":"Levantamento de Requisitos.md","x":-290,"y":-181,"width":400,"height":400},
+		{"id":"af73abf1d3b1ebe2","type":"file","file":"Metodologia de Desenvolvimento.md","x":-290,"y":380,"width":400,"height":400},
+		{"id":"7c68b788c54921a0","type":"text","text":"Documentação","x":340,"y":260,"width":250,"height":60,"color":"5"},
+		{"id":"be5b6de3075e9b52","type":"text","text":"Estrutura do Projeto","x":575,"y":1800,"width":250,"height":60,"color":"1"},
+		{"id":"ca7d9df4a621f372","type":"file","file":"Aplicativo.md","x":500,"y":1180,"width":400,"height":400},
+		{"id":"7b495a49825d5250","type":"file","file":"Site.md","x":500,"y":2120,"width":400,"height":400},
+		{"id":"b23f8c5aa78aa0d9","x":1135,"y":1680,"width":400,"height":400,"type":"file","file":"Estrutura de Pastas.md"},
+		{"id":"97e8af13c27f39be","x":-40,"y":1680,"width":400,"height":400,"type":"file","file":"IOT.md"},
+		{"id":"cc70d047586fd020","x":1480,"y":260,"width":250,"height":60,"color":"6","type":"text","text":"MaintSys"}
+	],
+	"edges":[
+		{"id":"09fa4ed4efc72ffc","fromNode":"7c68b788c54921a0","fromSide":"top","toNode":"62824f324acbd244","toSide":"right"},
+		{"id":"86ad2ff898aa9cc4","fromNode":"7c68b788c54921a0","fromSide":"bottom","toNode":"af73abf1d3b1ebe2","toSide":"right"},
+		{"id":"e6041543d05d9841","fromNode":"be5b6de3075e9b52","fromSide":"top","toNode":"ca7d9df4a621f372","toSide":"bottom"},
+		{"id":"c57fa6ac699a1e56","fromNode":"be5b6de3075e9b52","fromSide":"left","toNode":"97e8af13c27f39be","toSide":"right"},
+		{"id":"1fd992b17ade5182","fromNode":"be5b6de3075e9b52","fromSide":"right","toNode":"b23f8c5aa78aa0d9","toSide":"left"},
+		{"id":"762e3018df43b7be","fromNode":"be5b6de3075e9b52","fromSide":"bottom","toNode":"7b495a49825d5250","toSide":"top"},
+		{"id":"118dae0403bd3005","fromNode":"cc70d047586fd020","fromSide":"left","toNode":"7c68b788c54921a0","toSide":"right"},
+		{"id":"81e09688ecb83bb7","fromNode":"cc70d047586fd020","fromSide":"bottom","toNode":"be5b6de3075e9b52","toSide":"right"}
+	]
+}

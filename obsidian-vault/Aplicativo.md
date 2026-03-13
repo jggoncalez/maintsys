@@ -1,0 +1,3 @@
+- Requisitos
+	- Fácil manuseio
+	- estilo simples
