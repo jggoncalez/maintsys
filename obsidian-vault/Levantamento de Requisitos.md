@@ -1,88 +1,78 @@
-# Requisitos Funcionais — MaintSys
+# Requisitos — MaintSys
 
-- O sistema deve permitir o cadastro de técnicos especializados, armazenando informações como nome, especialização e credenciais de acesso, garantindo autenticação segura para uso nos terminais industriais.
-    
-- O sistema deve permitir o cadastro de máquinas e equipamentos com as seguintes informações: número de série, modelo, localização no galpão e data de instalação.
-    
-- O sistema deve permitir a criação de Ordens de Serviço (O.S.) do tipo Preventiva ou Corretiva, vinculando obrigatoriamente um técnico responsável a uma máquina específica.
-    
-- O sistema deve registrar todas as intervenções realizadas em uma máquina, mantendo um histórico completo que permita a análise de reincidência de defeitos.
-    
-- O sistema deve notificar automaticamente quando uma máquina sofrer mudança de status, como "Máquina 04 em Parada Crítica" ou "Manutenção Concluída".
-    
-- O sistema deve disponibilizar uma visão geral da planta das oficinas, identificando cada máquina cadastrada e exibindo seu status atual em tempo real.
-    
-- O sistema deve permitir a atualização do status de uma Ordem de Serviço ao longo do seu ciclo de vida, contemplando estados como "Aberta", "Em Andamento", "Aguardando Peças" e "Concluída".
-    
-- O sistema deve registrar o tempo de início e término de cada Ordem de Serviço, possibilitando o cálculo do tempo médio de reparo (MTTR) por equipamento.
-    
-- O sistema deve permitir que técnicos anexem observações e laudos técnicos às Ordens de Serviço, descrevendo o problema identificado e a solução aplicada.
-    
-- O sistema deve oferecer ao gestor um painel de indicadores com métricas como número de O.S. abertas, máquinas em parada crítica e taxa de manutenções preventivas versus corretivas.
-    
-- O sistema deve registrar o histórico de alterações de status das máquinas, incluindo data, hora e o técnico ou gestor responsável pela mudança.
-    
-- O sistema deve controlar os níveis de acesso dos usuários, distinguindo ao menos dois perfis: Técnico, com permissão para registrar e atualizar O.S., e Gestor, com acesso completo aos relatórios e configurações do sistema.
-    
+## Requisitos Funcionais
 
-# Requisitos Não Funcionais — MaintSys
+| ID    | Descrição                                                                                                        | Módulo            | Priorização(MoSCoW) |
+| ----- | ---------------------------------------------------------------------------------------------------------------- | ----------------- | ------------------- |
+| RF-01 | Cadastro de técnicos especializados com nome, especialização, credenciais de acesso e autenticação segura        | Usuários          | M                   |
+| RF-02 | Cadastro de máquinas e equipamentos com número de série, modelo, localização e data de instalação                | Equipamentos      | M                   |
+| RF-03 | Criação de Ordens de Serviço (O.S.) do tipo Preventiva ou Corretiva, vinculando técnico e máquina                | Ordens de Serviço | M                   |
+| RF-04 | Registro completo do histórico de intervenções em máquinas para análise de reincidência de defeitos              | Histórico         | M                   |
+| RF-05 | Notificações automáticas de mudança de status de máquinas (ex: "Máquina 04 em Parada Crítica")                   | Notificações      | S                   |
+| RF-06 | Visão geral da planta com identificação de máquinas e exibição de status em tempo real                           | Dashboard         | M                   |
+| RF-07 | Atualização de status de O.S. durante ciclo de vida (Aberta, Em Andamento, Aguardando Peças, Concluída)          | Ordens de Serviço | S                   |
+| RF-08 | Registro de tempo de início e término de O.S. para cálculo do MTTR por equipamento                               | Ordens de Serviço | S                   |
+| RF-09 | Anexação de observações e laudos técnicos às Ordens de Serviço                                                   | Ordens de Serviço | M                   |
+| RF-10 | Painel de indicadores para gestor com métricas de O.S. abertas, máquinas em parada crítica e taxa de manutenções | Dashboard         | S                   |
+| RF-11 | Histórico de alterações de status de máquinas com data, hora e responsável                                       | Histórico         | S                   |
+| RF-12 | Controle de acesso com dois perfis mínimos: Técnico e Gestor                                                     | Segurança         | S                   |
 
-**Desempenho**
+---
 
-- A API deve responder às requisições em no máximo 5 segundos em condições normais de uso.
-    
-- O sistema deve suportar pelo menos 50 requisições simultâneas sem degradação perceptível de desempenho.
-    
-- Consultas ao histórico de manutenções devem retornar resultados em no máximo 3 segundos, mesmo com grande volume de registros.
-      
+## Requisitos Não Funcionais
 
+### Desempenho
 
-**Segurança**
+| ID      | Descrição                                                     | Limite         | Priorização (MoSCoW) |
+| ------- | ------------------------------------------------------------- | -------------- | -------------------- |
+| RNF-D01 | Tempo máximo de resposta da API em condições normais          | 5 segundos     | C                    |
+| RNF-D02 | Requisições simultâneas suportadas sem degradação perceptível | 50 requisições | S                    |
+| RNF-D03 | Tempo máximo para consultas ao histórico de manutenções       | 3 segundos     | C                    |
 
-- O sistema deve autenticar os usuários via token JWT, garantindo que apenas usuários autorizados acessem os endpoints da API.
-    
-- As senhas dos técnicos e gestores devem ser armazenadas com hash seguro (bcrypt).
-    
-- O sistema deve bloquear o acesso a recursos restritos com base no perfil do usuário, retornando HTTP 403 em caso de permissão insuficiente.
-    
-- Toda comunicação com a API deve ser realizada via HTTPS para garantir a confidencialidade dos dados transmitidos.
-    
+### Segurança
 
+| ID      | Descrição                               | Método                               | Priorização (MoSCoW) |
+| ------- | --------------------------------------- | ------------------------------------ | -------------------- |
+| RNF-S01 | Autenticação de usuários                | Token JWT                            | M                    |
+| RNF-S02 | Armazenamento de senhas                 | Hash bcrypt                          | M                    |
+| RNF-S03 | Controle de acesso a recursos restritos | HTTP 403 para permissão insuficiente | S                    |
+| RNF-S04 | Comunicação com API                     | HTTPS                                | M                    |
 
-**Manutenibilidade**
+### Manutenibilidade
 
-- O código deve seguir os padrões PSR-12 e princípios de Clean Code, garantindo legibilidade e facilidade de manutenção.
-    
-- A aplicação deve ser estruturada seguindo o padrão MVC do Laravel, com separação clara entre regras de negócio, controle e persistência de dados.
-    
-- O projeto deve ser versionado no GitHub com commits organizados e descrições claras das alterações realizadas.
-    
+| ID      | Descrição                | Padrão                         | Priorização (MoSCoW) |
+| ------- | ------------------------ | ------------------------------ | -------------------- |
+| RNF-M01 | Padrão de código         | PSR-12 e Clean Code            | C                    |
+| RNF-M02 | Arquitetura da aplicação | MVC                            | S                    |
+| RNF-M03 | Versionamento do projeto | GitHub com commits organizados | M                    |
 
+### Portabilidade
 
-**Portabilidade**
+| ID      | Descrição              | Escopo                                        | Priorização (MoSCoW) |
+| ------- | ---------------------- | --------------------------------------------- | -------------------- |
+| RNF-P01 | Consumibilidade da API | Qualquer cliente HTTP (tablets, web, Postman) | S                    |
+| RNF-P02 | Ambientes de execução  | Linux e Windows com PHP e MySQL               | M                    |
 
-- A API deve ser consumível por qualquer cliente HTTP, como tablets industriais, aplicações web e Postman.
-    
-- O sistema deve ser executável em ambientes Linux e Windows, desde que com PHP e MySQL devidamente configurados.
-    
+### Entrega
 
+| ID      | Descrição                              | Artefato                  | Priorização (MoSCoW) |
+| ------- | -------------------------------------- | ------------------------- | -------------------- |
+| RNF-E01 | Documentação de instalação e execução  | README no GitHub          | C                    |
+| RNF-E02 | Documentação e testabilidade das rotas | Coleção Postman exportada | S                    |
+| RNF-E03 | Configuração do banco de dados         | Migrations                | M                    |
 
-**Entrega**
+### Confiabilidade
 
-- O repositório no GitHub deve conter um arquivo README com instruções claras de instalação, configuração e execução do projeto.
-    
-- A API deve ter suas rotas documentadas e testáveis via arquivo de coleção exportado d Postman.
-    
-- O banco de dados deve ser configurado via Migrations do Laravel, permitindo a recriação do ambiente com um único comando.
-    
+| ID      | Descrição                                 | Implementação                                             | Priorização (MoSCoW) |
+| ------- | ----------------------------------------- | --------------------------------------------------------- | -------------------- |
+| RNF-C01 | Integridade referencial dos dados         | Constraints MySQL e relações Eloquent ORM                 | S                    |
+| RNF-C02 | Tratamento de erros em operações críticas | Mensagens padronizadas em JSON com código HTTP apropriado | S                    |
+| RNF-C03 | Consistência em operações múltiplas       | Transações de banco de dados                              | M                    |
 
 
-**Confiabilidade**
+### Legenda de Priorização (MoSCoW)
 
-- O sistema deve garantir a integridade referencial dos dados por meio das constraints do banco de dados MySQL e das relações definidas no Eloquent ORM.
-    
-- Em caso de falha em uma operação crítica, o sistema deve retornar mensagens de erro padronizadas em JSON, com código HTTP apropriado.
-    
-- O sistema deve utilizar transações de banco de dados em operações que envolvam múltiplas tabelas, evitando inconsistências em caso de falha parcial.
-    
-
+- **Must-have (M):** Requisitos vitais para o sucesso do projeto e segurança operacional.
+- **Should-have (S):** Requisitos importantes, mas não vitais para a fase inicial.
+- **Could-have (C):** Requisitos desejáveis que melhoram a experiência, mas podem ser deixados para depois.
+- **Won't-have (W):** Requisitos que não serão incluídos nesta entrega (ou ciclo de desenvolvimento).
