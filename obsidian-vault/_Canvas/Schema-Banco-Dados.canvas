@@ -1,213 +1,30 @@
 {
-  "nodes": [
-    {
-      "id": "db-schema",
-      "type": "text",
-      "text": "🗄️ MAINTSYS\nDATABASE SCHEMA",
-      "x": 0,
-      "y": -300,
-      "width": 150,
-      "height": 80,
-      "color": "#34495e"
-    },
-    {
-      "id": "db-users",
-      "type": "text",
-      "text": "👥 USERS\nid (PK)\nname\nemail\npassword\n\n+ Spatie roles",
-      "x": -500,
-      "y": -50,
-      "width": 140,
-      "height": 140,
-      "color": "#9b59b6"
-    },
-    {
-      "id": "db-machines",
-      "type": "text",
-      "text": "🏢 MACHINES\nid (PK)\nserial_number (UK)\nname, model\nlocation\nstatus (enum)\ninstalled_at\nlast_reading_at",
-      "x": -200,
-      "y": -50,
-      "width": 140,
-      "height": 160,
-      "color": "#f39c12"
-    },
-    {
-      "id": "db-service-orders",
-      "type": "text",
-      "text": "📋 SERVICE_ORDERS\nid (PK)\nmachine_id (FK)\ntechnician_id (FK)\ncreated_by (FK)\ntype (enum)\nstatus (enum)\nstarted_at\ncompleted_at",
-      "x": 100,
-      "y": -50,
-      "width": 140,
-      "height": 160,
-      "color": "#27ae60"
-    },
-    {
-      "id": "db-logs",
-      "type": "text",
-      "text": "📝 MAINTENANCE_LOGS\nid (PK)\nmachine_id (FK)\nservice_order_id (FK)\nuser_id (FK)\naction\ndefect_type",
-      "x": 400,
-      "y": -50,
-      "width": 140,
-      "height": 160,
-      "color": "#16a085"
-    },
-    {
-      "id": "db-readings",
-      "type": "text",
-      "text": "📊 MACHINE_READINGS\nid (PK)\nmachine_id (FK)\nsensor_key\nvalue\nunit\nread_at",
-      "x": 700,
-      "y": -50,
-      "width": 140,
-      "height": 140,
-      "color": "#3498db"
-    },
-    {
-      "id": "db-alerts",
-      "type": "text",
-      "text": "🚨 STATUS_ALERTS\nid (PK)\nmachine_id (FK)\nprevious_status\nnew_status\nmessage\nis_read\ntriggered_at",
-      "x": 1000,
-      "y": -50,
-      "width": 140,
-      "height": 160,
-      "color": "#e74c3c"
-    },
-    {
-      "id": "rel-users-so",
-      "type": "text",
-      "text": "1 User → Many\nService Orders\n(technician_id)",
-      "x": -200,
-      "y": 200,
-      "width": 120,
-      "height": 100,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "rel-machines-so",
-      "type": "text",
-      "text": "1 Machine → Many\nService Orders",
-      "x": 0,
-      "y": 200,
-      "width": 120,
-      "height": 100,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "rel-so-logs",
-      "type": "text",
-      "text": "1 ServiceOrder →\nMany Logs",
-      "x": 200,
-      "y": 200,
-      "width": 120,
-      "height": 100,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "rel-machines-readings",
-      "type": "text",
-      "text": "1 Machine → Many\nReadings",
-      "x": 550,
-      "y": 200,
-      "width": 120,
-      "height": 100,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "rel-machines-alerts",
-      "type": "text",
-      "text": "1 Machine → Many\nAlerts",
-      "x": 850,
-      "y": 200,
-      "width": 120,
-      "height": 100,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "indexes",
-      "type": "text",
-      "text": "⚡ ÍNDICES\nmachine_id (FK)\nstatus (enum)\nlocation (search)\nserial_number (unique)\ntimestamps",
-      "x": 0,
-      "y": 400,
-      "width": 150,
-      "height": 130,
-      "color": "#e67e22"
-    }
-  ],
-  "edges": [
-    {
-      "id": "e1",
-      "fromNode": "db-schema",
-      "fromSide": "bottom",
-      "toNode": "db-users",
-      "toSide": "top"
-    },
-    {
-      "id": "e2",
-      "fromNode": "db-schema",
-      "fromSide": "bottom",
-      "toNode": "db-machines",
-      "toSide": "top"
-    },
-    {
-      "id": "e3",
-      "fromNode": "db-schema",
-      "fromSide": "bottom",
-      "toNode": "db-service-orders",
-      "toSide": "top"
-    },
-    {
-      "id": "e4",
-      "fromNode": "db-schema",
-      "fromSide": "bottom",
-      "toNode": "db-logs",
-      "toSide": "top"
-    },
-    {
-      "id": "e5",
-      "fromNode": "db-schema",
-      "fromSide": "bottom",
-      "toNode": "db-readings",
-      "toSide": "top"
-    },
-    {
-      "id": "e6",
-      "fromNode": "db-schema",
-      "fromSide": "bottom",
-      "toNode": "db-alerts",
-      "toSide": "top"
-    },
-    {
-      "id": "e7",
-      "fromNode": "db-users",
-      "fromSide": "bottom",
-      "toNode": "rel-users-so",
-      "toSide": "left"
-    },
-    {
-      "id": "e8",
-      "fromNode": "db-machines",
-      "fromSide": "bottom",
-      "toNode": "rel-machines-so",
-      "toSide": "left"
-    },
-    {
-      "id": "e9",
-      "fromNode": "db-service-orders",
-      "fromSide": "bottom",
-      "toNode": "rel-so-logs",
-      "toSide": "left"
-    },
-    {
-      "id": "e10",
-      "fromNode": "db-readings",
-      "fromSide": "bottom",
-      "toNode": "rel-machines-readings",
-      "toSide": "top"
-    },
-    {
-      "id": "e11",
-      "fromNode": "db-alerts",
-      "fromSide": "bottom",
-      "toNode": "rel-machines-alerts",
-      "toSide": "top"
-    }
-  ]
+	"nodes":[
+		{"id":"db-schema","type":"text","text":"🗄️ MAINTSYS\nDATABASE SCHEMA","x":0,"y":-300,"width":150,"height":80,"color":"#34495e"},
+		{"id":"db-users","type":"text","text":"👥 USERS\nid (PK)\nname\nemail\npassword\n\n+ Spatie roles","x":-500,"y":-50,"width":140,"height":140,"color":"#9b59b6"},
+		{"id":"db-machines","type":"text","text":"🏢 MACHINES\nid (PK)\nserial_number (UK)\nname, model\nlocation\nstatus (enum)\ninstalled_at\nlast_reading_at","x":-200,"y":-50,"width":140,"height":160,"color":"#f39c12"},
+		{"id":"db-service-orders","type":"text","text":"📋 SERVICE_ORDERS\nid (PK)\nmachine_id (FK)\ntechnician_id (FK)\ncreated_by (FK)\ntype (enum)\nstatus (enum)\nstarted_at\ncompleted_at","x":100,"y":-50,"width":140,"height":160,"color":"#27ae60"},
+		{"id":"db-logs","type":"text","text":"📝 MAINTENANCE_LOGS\nid (PK)\nmachine_id (FK)\nservice_order_id (FK)\nuser_id (FK)\naction\ndefect_type","x":400,"y":-50,"width":140,"height":160,"color":"#16a085"},
+		{"id":"db-readings","type":"text","text":"📊 MACHINE_READINGS\nid (PK)\nmachine_id (FK)\nsensor_key\nvalue\nunit\nread_at","x":700,"y":-50,"width":140,"height":140,"color":"#3498db"},
+		{"id":"db-alerts","type":"text","text":"🚨 STATUS_ALERTS\nid (PK)\nmachine_id (FK)\nprevious_status\nnew_status\nmessage\nis_read\ntriggered_at","x":1000,"y":-50,"width":140,"height":160,"color":"#e74c3c"},
+		{"id":"rel-users-so","type":"text","text":"1 User → Many\nService Orders\n(technician_id)","x":-200,"y":200,"width":120,"height":100,"color":"#95a5a6"},
+		{"id":"rel-machines-so","type":"text","text":"1 Machine → Many\nService Orders","x":0,"y":200,"width":120,"height":100,"color":"#95a5a6"},
+		{"id":"rel-so-logs","type":"text","text":"1 ServiceOrder →\nMany Logs","x":200,"y":200,"width":120,"height":100,"color":"#95a5a6"},
+		{"id":"rel-machines-readings","type":"text","text":"1 Machine → Many\nReadings","x":550,"y":200,"width":120,"height":100,"color":"#95a5a6"},
+		{"id":"rel-machines-alerts","type":"text","text":"1 Machine → Many\nAlerts","x":850,"y":200,"width":120,"height":100,"color":"#95a5a6"},
+		{"id":"indexes","type":"text","text":"⚡ ÍNDICES\nmachine_id (FK)\nstatus (enum)\nlocation (search)\nserial_number (unique)\ntimestamps","x":0,"y":400,"width":150,"height":130,"color":"#e67e22"}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"db-schema","fromSide":"bottom","toNode":"db-users","toSide":"top"},
+		{"id":"e2","fromNode":"db-schema","fromSide":"bottom","toNode":"db-machines","toSide":"top"},
+		{"id":"e3","fromNode":"db-schema","fromSide":"bottom","toNode":"db-service-orders","toSide":"top"},
+		{"id":"e4","fromNode":"db-schema","fromSide":"bottom","toNode":"db-logs","toSide":"top"},
+		{"id":"e5","fromNode":"db-schema","fromSide":"bottom","toNode":"db-readings","toSide":"top"},
+		{"id":"e6","fromNode":"db-schema","fromSide":"bottom","toNode":"db-alerts","toSide":"top"},
+		{"id":"e7","fromNode":"db-users","fromSide":"bottom","toNode":"rel-users-so","toSide":"left"},
+		{"id":"e8","fromNode":"db-machines","fromSide":"bottom","toNode":"rel-machines-so","toSide":"left"},
+		{"id":"e9","fromNode":"db-service-orders","fromSide":"bottom","toNode":"rel-so-logs","toSide":"left"},
+		{"id":"e10","fromNode":"db-readings","fromSide":"bottom","toNode":"rel-machines-readings","toSide":"top"},
+		{"id":"e11","fromNode":"db-alerts","fromSide":"bottom","toNode":"rel-machines-alerts","toSide":"top"}
+	]
 }

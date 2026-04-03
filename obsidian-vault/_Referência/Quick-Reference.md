@@ -219,7 +219,7 @@ class ServiceOrder extends Model
 
 ## 🎨 Filament Resources
 
-### MachineResource struktura básica
+### MachineResource estrutura básica
 ```php
 // app/Filament/Resources/MachineResource.php
 

@@ -39,7 +39,11 @@
 - Never trust user input
 
 ---
+## 🚀 Metodologia Agile
 
+A metodologia escolhida para o desenvolvimento do MaintSys foi o **Scrum**, um framework ágil baseado em ciclos curtos e iterativos de entrega chamados de **Sprints**. Cada Sprint representa um período fixo de trabalho ao final do qual um incremento funcional do produto deve ser entregue, permitindo validações contínuas e o aprimoramento progressivo do sistema.
+
+O Scrum organiza o trabalho em torno de três pilares principais: transparência, inspeção e adaptação. As entregas são planejadas e priorizadas em um **Product Backlog**, e ao início de cada Sprint é definido o que será desenvolvido naquele ciclo por meio do **Sprint Planning**. Ao final, realiza-se uma revisão dos resultados e uma retrospectiva para identificar melhorias no processo.
 ## 📋 Ciclo de Desenvolvimento
 
 ### Sprint (1 semana)
@@ -735,16 +739,6 @@ curl https://maintsys.com/health
 
 ---
 
-## 📞 Arquivos de Referência
-
-- [[_Documentação/LEVANTAMENTO-REQUISITOS]] — Requisitos detalhados
-- [[_Documentação/02-Arquitetura]] — Arquitetura do projeto
-- [[_Documentação/07-Checklist]] — Checklist de implementação
-- [[_Referência/Quick-Reference]] — Code snippets
-- [[_Fluxogramas/]] — Todos os fluxos
-
----
-
 ## 📊 Métricas de Desenvolvimento
 
 | Métrica | Meta |
@@ -1094,7 +1088,7 @@ php artisan serve
 ## 📞 Referências & Documentação
 
 **Documentos Principais:**
-- [[_Documentação/LEVANTAMENTO-REQUISITOS]] — Especificação completa de requisitos
+- [[01-Requisitos]] — Especificação completa de requisitos
 - [[_Documentação/README]] — Visão geral
 - [[_Referência/Quick-Reference]] — Code snippets prontos
 
@@ -1106,7 +1100,6 @@ php artisan serve
 **Implementação:**
 - [[_Documentação/07-Checklist]] — Passo-a-passo
 - [[_Referência/INDEX]] — Busca por tópico
-
 ---
 
 ## 📊 Métricas e KPIs

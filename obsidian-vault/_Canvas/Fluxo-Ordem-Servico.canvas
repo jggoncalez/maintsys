@@ -1,237 +1,33 @@
 {
-  "nodes": [
-    {
-      "id": "os-create-start",
-      "type": "text",
-      "text": "👤 GERENTE\nCria Nova O.S.",
-      "x": -400,
-      "y": -150,
-      "width": 120,
-      "height": 100,
-      "color": "#3498db"
-    },
-    {
-      "id": "os-form",
-      "type": "text",
-      "text": "📝 FORM\nTítulo\nDescrição\nMáquina\nTipo\nTecnico",
-      "x": -150,
-      "y": -150,
-      "width": 120,
-      "height": 120,
-      "color": "#f39c12"
-    },
-    {
-      "id": "os-submit",
-      "type": "text",
-      "text": "✓ SUBMIT",
-      "x": 100,
-      "y": -150,
-      "width": 100,
-      "height": 80,
-      "color": "#27ae60"
-    },
-    {
-      "id": "os-save",
-      "type": "text",
-      "text": "💾 SAVE\nStatus: OPEN\ncreated_by = auth",
-      "x": 300,
-      "y": -150,
-      "width": 120,
-      "height": 100,
-      "color": "#27ae60"
-    },
-    {
-      "id": "os-notify",
-      "type": "text",
-      "text": "📧 NOTIFY\nTécnico\nEmail + DB",
-      "x": 500,
-      "y": -150,
-      "width": 120,
-      "height": 100,
-      "color": "#e67e22"
-    },
-    {
-      "id": "os-open",
-      "type": "text",
-      "text": "⏳ OPEN\n(Waiting for Tech)",
-      "x": -400,
-      "y": 100,
-      "width": 120,
-      "height": 100,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "os-tech-view",
-      "type": "text",
-      "text": "👤 TÉCNICO\nVê em Aberto",
-      "x": -150,
-      "y": 100,
-      "width": 120,
-      "height": 100,
-      "color": "#3498db"
-    },
-    {
-      "id": "os-start",
-      "type": "text",
-      "text": "▶️ INICIAR O.S.\nClica botão",
-      "x": 100,
-      "y": 100,
-      "width": 120,
-      "height": 100,
-      "color": "#f39c12"
-    },
-    {
-      "id": "os-progress",
-      "type": "text",
-      "text": "⚙️ IN PROGRESS\nstarted_at = now()",
-      "x": 300,
-      "y": 100,
-      "width": 120,
-      "height": 100,
-      "color": "#f39c12"
-    },
-    {
-      "id": "os-log",
-      "type": "text",
-      "text": "📋 MAINTENANCE LOG\nAction\nDescription\nDefect Type",
-      "x": 500,
-      "y": 100,
-      "width": 120,
-      "height": 120,
-      "color": "#16a085"
-    },
-    {
-      "id": "os-complete-btn",
-      "type": "text",
-      "text": "✅ CONCLUIR\nClica botão",
-      "x": 100,
-      "y": 350,
-      "width": 120,
-      "height": 100,
-      "color": "#27ae60"
-    },
-    {
-      "id": "os-notes",
-      "type": "text",
-      "text": "📝 RESOLUTION\nNOTES\n\nModal com\ntexto",
-      "x": 300,
-      "y": 350,
-      "width": 120,
-      "height": 120,
-      "color": "#27ae60"
-    },
-    {
-      "id": "os-completed",
-      "type": "text",
-      "text": "✅ COMPLETED\nStatus: COMPLETED\ncompleted_at = now()\nresolution_notes = texto",
-      "x": 500,
-      "y": 350,
-      "width": 140,
-      "height": 120,
-      "color": "#27ae60"
-    },
-    {
-      "id": "os-dashboard",
-      "type": "text",
-      "text": "📊 DASHBOARD\nWidgets atualizam\nO.S. sai de recentes",
-      "x": 700,
-      "y": 100,
-      "width": 140,
-      "height": 120,
-      "color": "#16a085"
-    }
-  ],
-  "edges": [
-    {
-      "id": "e1",
-      "fromNode": "os-create-start",
-      "fromSide": "right",
-      "toNode": "os-form",
-      "toSide": "left"
-    },
-    {
-      "id": "e2",
-      "fromNode": "os-form",
-      "fromSide": "right",
-      "toNode": "os-submit",
-      "toSide": "left"
-    },
-    {
-      "id": "e3",
-      "fromNode": "os-submit",
-      "fromSide": "right",
-      "toNode": "os-save",
-      "toSide": "left"
-    },
-    {
-      "id": "e4",
-      "fromNode": "os-save",
-      "fromSide": "right",
-      "toNode": "os-notify",
-      "toSide": "left"
-    },
-    {
-      "id": "e5",
-      "fromNode": "os-create-start",
-      "fromSide": "bottom",
-      "toNode": "os-open",
-      "toSide": "top"
-    },
-    {
-      "id": "e6",
-      "fromNode": "os-open",
-      "fromSide": "right",
-      "toNode": "os-tech-view",
-      "toSide": "left"
-    },
-    {
-      "id": "e7",
-      "fromNode": "os-tech-view",
-      "fromSide": "right",
-      "toNode": "os-start",
-      "toSide": "left"
-    },
-    {
-      "id": "e8",
-      "fromNode": "os-start",
-      "fromSide": "right",
-      "toNode": "os-progress",
-      "toSide": "left"
-    },
-    {
-      "id": "e9",
-      "fromNode": "os-progress",
-      "fromSide": "right",
-      "toNode": "os-log",
-      "toSide": "left"
-    },
-    {
-      "id": "e10",
-      "fromNode": "os-progress",
-      "fromSide": "bottom",
-      "toNode": "os-complete-btn",
-      "toSide": "top"
-    },
-    {
-      "id": "e11",
-      "fromNode": "os-complete-btn",
-      "fromSide": "right",
-      "toNode": "os-notes",
-      "toSide": "left"
-    },
-    {
-      "id": "e12",
-      "fromNode": "os-notes",
-      "fromSide": "right",
-      "toNode": "os-completed",
-      "toSide": "left"
-    },
-    {
-      "id": "e13",
-      "fromNode": "os-completed",
-      "fromSide": "right",
-      "toNode": "os-dashboard",
-      "toSide": "bottom"
-    }
-  ]
+	"nodes":[
+		{"id":"os-create-start","type":"text","text":"👤 GERENTE\nCria Nova O.S.","x":-400,"y":-150,"width":160,"height":115,"color":"#3498db"},
+		{"id":"os-form","type":"text","text":"📝 FORM\nTítulo\nDescrição\nMáquina\nTipo\nTecnico","x":-150,"y":-150,"width":116,"height":175,"color":"#f39c12"},
+		{"id":"os-submit","type":"text","text":"✓ SUBMIT","x":100,"y":-150,"width":118,"height":73,"color":"#27ae60"},
+		{"id":"os-save","type":"text","text":"💾 SAVE\nStatus: OPEN\ncreated_by = auth","x":300,"y":-150,"width":113,"height":145,"color":"#27ae60"},
+		{"id":"os-notify","type":"text","text":"📧 NOTIFY\nTécnico\nEmail + DB","x":500,"y":-150,"width":120,"height":100,"color":"#e67e22"},
+		{"id":"os-progress","type":"text","text":"⚙️ IN PROGRESS\nstarted_at = now()","x":300,"y":100,"width":120,"height":100,"color":"#f39c12"},
+		{"id":"os-log","type":"text","text":"📋 MAINTENANCE LOG\nAction\nDescription\nDefect Type","x":500,"y":100,"width":120,"height":120,"color":"#16a085"},
+		{"id":"os-complete-btn","type":"text","text":"✅ CONCLUIR\nClica botão","x":100,"y":350,"width":120,"height":100,"color":"#27ae60"},
+		{"id":"os-notes","type":"text","text":"📝 RESOLUTION\nNOTES\n\nModal com\ntexto","x":300,"y":350,"width":120,"height":120,"color":"#27ae60"},
+		{"id":"os-completed","type":"text","text":"✅ COMPLETED\nStatus: COMPLETED\ncompleted_at = now()\nresolution_notes = texto","x":500,"y":350,"width":140,"height":120,"color":"#27ae60"},
+		{"id":"os-dashboard","type":"text","text":"📊 DASHBOARD\nWidgets atualizam\nO.S. sai de recentes","x":700,"y":100,"width":140,"height":120,"color":"#16a085"},
+		{"id":"os-open","type":"text","text":"⏳ OPEN\n(Waiting for Tech)","x":-380,"y":100,"width":120,"height":100,"color":"#95a5a6"},
+		{"id":"os-tech-view","type":"text","text":"👤 TÉCNICO\nVê em Aberto","x":-150,"y":93,"width":111,"height":115,"color":"#3498db"},
+		{"id":"os-start","type":"text","text":"▶️ INICIAR O.S.\nClica botão","x":58,"y":111,"width":160,"height":79,"color":"#f39c12"}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"os-create-start","fromSide":"right","toNode":"os-form","toSide":"left"},
+		{"id":"e2","fromNode":"os-form","fromSide":"right","toNode":"os-submit","toSide":"left"},
+		{"id":"e3","fromNode":"os-submit","fromSide":"right","toNode":"os-save","toSide":"left"},
+		{"id":"e4","fromNode":"os-save","fromSide":"right","toNode":"os-notify","toSide":"left"},
+		{"id":"e5","fromNode":"os-create-start","fromSide":"bottom","toNode":"os-open","toSide":"top"},
+		{"id":"e6","fromNode":"os-open","fromSide":"right","toNode":"os-tech-view","toSide":"left"},
+		{"id":"e7","fromNode":"os-tech-view","fromSide":"right","toNode":"os-start","toSide":"left"},
+		{"id":"e8","fromNode":"os-start","fromSide":"right","toNode":"os-progress","toSide":"left"},
+		{"id":"e9","fromNode":"os-progress","fromSide":"right","toNode":"os-log","toSide":"left"},
+		{"id":"e10","fromNode":"os-progress","fromSide":"bottom","toNode":"os-complete-btn","toSide":"top"},
+		{"id":"e11","fromNode":"os-complete-btn","fromSide":"right","toNode":"os-notes","toSide":"left"},
+		{"id":"e12","fromNode":"os-notes","fromSide":"right","toNode":"os-completed","toSide":"left"},
+		{"id":"e13","fromNode":"os-completed","fromSide":"right","toNode":"os-dashboard","toSide":"bottom"}
+	]
 }

@@ -1,230 +1,32 @@
 {
-  "nodes": [
-    {
-      "id": "rbac-title",
-      "type": "text",
-      "text": "🛡️ RBAC - Role-Based\nAccess Control",
-      "x": 0,
-      "y": -250,
-      "width": 150,
-      "height": 80,
-      "color": "#9b59b6"
-    },
-    {
-      "id": "role-admin",
-      "type": "text",
-      "text": "👑 ADMIN\n\n✅ Users CRUD\n✅ Machines CRUD\n✅ Service Orders CRUD\n✅ All Permissions",
-      "x": -400,
-      "y": 0,
-      "width": 140,
-      "height": 160,
-      "color": "#c0392b"
-    },
-    {
-      "id": "role-gerente",
-      "type": "text",
-      "text": "📊 GERENTE\n\n✅ Machines RU\n✅ Service Orders CRUD\n✅ Logs RU\n✅ Alerts R\n❌ Users -",
-      "x": -100,
-      "y": 0,
-      "width": 140,
-      "height": 160,
-      "color": "#f39c12"
-    },
-    {
-      "id": "role-tecnico",
-      "type": "text",
-      "text": "🔧 TÉCNICO\n\n✅ Machines R\n✅ Own ServiceOrders RU\n✅ Logs CR\n✅ Alerts R\n❌ Users -",
-      "x": 200,
-      "y": 0,
-      "width": 140,
-      "height": 160,
-      "color": "#f1c40f"
-    },
-    {
-      "id": "role-operador",
-      "type": "text",
-      "text": "👁️ OPERADOR\n\n✅ Machines R\n✅ ServiceOrders R\n✅ Logs R\n✅ Alerts R\n❌ Users -",
-      "x": 500,
-      "y": 0,
-      "width": 140,
-      "height": 160,
-      "color": "#27ae60"
-    },
-    {
-      "id": "perm-create",
-      "type": "text",
-      "text": "CREATE ➕\nAdmin\nGerente\nTecnico*",
-      "x": -400,
-      "y": 250,
-      "width": 120,
-      "height": 100,
-      "color": "#3498db"
-    },
-    {
-      "id": "perm-read",
-      "type": "text",
-      "text": "READ 📖\nAll Roles",
-      "x": -100,
-      "y": 250,
-      "width": 120,
-      "height": 100,
-      "color": "#27ae60"
-    },
-    {
-      "id": "perm-update",
-      "type": "text",
-      "text": "UPDATE ✏️\nAdmin\nGerente\nTecnico*",
-      "x": 200,
-      "y": 250,
-      "width": 120,
-      "height": 100,
-      "color": "#f39c12"
-    },
-    {
-      "id": "perm-delete",
-      "type": "text",
-      "text": "DELETE 🗑️\nAdmin only",
-      "x": 500,
-      "y": 250,
-      "width": 120,
-      "height": 100,
-      "color": "#e74c3c"
-    },
-    {
-      "id": "resource-machines",
-      "type": "text",
-      "text": "🏢 MACHINES\nResource",
-      "x": -300,
-      "y": 450,
-      "width": 100,
-      "height": 80,
-      "color": "#3498db"
-    },
-    {
-      "id": "resource-orders",
-      "type": "text",
-      "text": "📋 SERVICE\nORDERS",
-      "x": 0,
-      "y": 450,
-      "width": 100,
-      "height": 80,
-      "color": "#3498db"
-    },
-    {
-      "id": "resource-logs",
-      "type": "text",
-      "text": "📝 MAINTENANCE\nLOGS",
-      "x": 300,
-      "y": 450,
-      "width": 100,
-      "height": 80,
-      "color": "#3498db"
-    },
-    {
-      "id": "resource-users",
-      "type": "text",
-      "text": "👥 USERS",
-      "x": 600,
-      "y": 450,
-      "width": 100,
-      "height": 80,
-      "color": "#3498db"
-    },
-    {
-      "id": "policy-check",
-      "type": "text",
-      "text": "🚨 POLICY\nVERIFY",
-      "x": 150,
-      "y": 600,
-      "width": 120,
-      "height": 80,
-      "color": "#e74c3c"
-    }
-  ],
-  "edges": [
-    {
-      "id": "e1",
-      "fromNode": "rbac-title",
-      "fromSide": "bottom",
-      "toNode": "role-admin",
-      "toSide": "top"
-    },
-    {
-      "id": "e2",
-      "fromNode": "rbac-title",
-      "fromSide": "bottom",
-      "toNode": "role-gerente",
-      "toSide": "top"
-    },
-    {
-      "id": "e3",
-      "fromNode": "rbac-title",
-      "fromSide": "bottom",
-      "toNode": "role-tecnico",
-      "toSide": "top"
-    },
-    {
-      "id": "e4",
-      "fromNode": "rbac-title",
-      "fromSide": "bottom",
-      "toNode": "role-operador",
-      "toSide": "top"
-    },
-    {
-      "id": "e5",
-      "fromNode": "role-admin",
-      "fromSide": "bottom",
-      "toNode": "perm-create",
-      "toSide": "top"
-    },
-    {
-      "id": "e6",
-      "fromNode": "role-gerente",
-      "fromSide": "bottom",
-      "toNode": "perm-read",
-      "toSide": "top"
-    },
-    {
-      "id": "e7",
-      "fromNode": "role-tecnico",
-      "fromSide": "bottom",
-      "toNode": "perm-update",
-      "toSide": "top"
-    },
-    {
-      "id": "e8",
-      "fromNode": "role-operador",
-      "fromSide": "bottom",
-      "toNode": "perm-delete",
-      "toSide": "top"
-    },
-    {
-      "id": "e9",
-      "fromNode": "perm-create",
-      "fromSide": "bottom",
-      "toNode": "resource-machines",
-      "toSide": "top"
-    },
-    {
-      "id": "e10",
-      "fromNode": "perm-read",
-      "fromSide": "bottom",
-      "toNode": "resource-orders",
-      "toSide": "top"
-    },
-    {
-      "id": "e11",
-      "fromNode": "perm-update",
-      "fromSide": "bottom",
-      "toNode": "resource-logs",
-      "toSide": "top"
-    },
-    {
-      "id": "e12",
-      "fromNode": "perm-delete",
-      "fromSide": "bottom",
-      "toNode": "resource-users",
-      "toSide": "top"
-    }
-  ]
+	"nodes":[
+		{"id":"rbac-title","type":"text","text":"🛡️ RBAC - Role-Based\nAccess Control","x":0,"y":-250,"width":150,"height":80,"color":"#9b59b6"},
+		{"id":"role-admin","type":"text","text":"👑 ADMIN\n\n✅ Users CRUD\n✅ Machines CRUD\n✅ Service Orders CRUD\n✅ All Permissions","x":-400,"y":0,"width":140,"height":160,"color":"#c0392b"},
+		{"id":"role-gerente","type":"text","text":"📊 GERENTE\n\n✅ Machines RU\n✅ Service Orders CRUD\n✅ Logs RU\n✅ Alerts R\n❌ Users -","x":-100,"y":0,"width":140,"height":160,"color":"#f39c12"},
+		{"id":"role-tecnico","type":"text","text":"🔧 TÉCNICO\n\n✅ Machines R\n✅ Own ServiceOrders RU\n✅ Logs CR\n✅ Alerts R\n❌ Users -","x":200,"y":0,"width":140,"height":160,"color":"#f1c40f"},
+		{"id":"role-operador","type":"text","text":"👁️ OPERADOR\n\n✅ Machines R\n✅ ServiceOrders R\n✅ Logs R\n✅ Alerts R\n❌ Users -","x":500,"y":0,"width":140,"height":160,"color":"#27ae60"},
+		{"id":"perm-create","type":"text","text":"CREATE ➕\nAdmin\nGerente\nTecnico*","x":-400,"y":250,"width":120,"height":100,"color":"#3498db"},
+		{"id":"perm-read","type":"text","text":"READ 📖\nAll Roles","x":-100,"y":250,"width":120,"height":100,"color":"#27ae60"},
+		{"id":"perm-update","type":"text","text":"UPDATE ✏️\nAdmin\nGerente\nTecnico*","x":200,"y":250,"width":120,"height":100,"color":"#f39c12"},
+		{"id":"perm-delete","type":"text","text":"DELETE 🗑️\nAdmin only","x":500,"y":250,"width":120,"height":100,"color":"#e74c3c"},
+		{"id":"resource-machines","type":"text","text":"🏢 MACHINES\nResource","x":-300,"y":450,"width":100,"height":80,"color":"#3498db"},
+		{"id":"resource-orders","type":"text","text":"📋 SERVICE\nORDERS","x":0,"y":450,"width":100,"height":80,"color":"#3498db"},
+		{"id":"resource-logs","type":"text","text":"📝 MAINTENANCE\nLOGS","x":300,"y":450,"width":100,"height":80,"color":"#3498db"},
+		{"id":"resource-users","type":"text","text":"👥 USERS","x":600,"y":450,"width":100,"height":80,"color":"#3498db"},
+		{"id":"policy-check","type":"text","text":"🚨 POLICY\nVERIFY","x":150,"y":600,"width":120,"height":80,"color":"#e74c3c"}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"rbac-title","fromSide":"bottom","toNode":"role-admin","toSide":"top"},
+		{"id":"e2","fromNode":"rbac-title","fromSide":"bottom","toNode":"role-gerente","toSide":"top"},
+		{"id":"e3","fromNode":"rbac-title","fromSide":"bottom","toNode":"role-tecnico","toSide":"top"},
+		{"id":"e4","fromNode":"rbac-title","fromSide":"bottom","toNode":"role-operador","toSide":"top"},
+		{"id":"e5","fromNode":"role-admin","fromSide":"bottom","toNode":"perm-create","toSide":"top"},
+		{"id":"e6","fromNode":"role-gerente","fromSide":"bottom","toNode":"perm-read","toSide":"top"},
+		{"id":"e7","fromNode":"role-tecnico","fromSide":"bottom","toNode":"perm-update","toSide":"top"},
+		{"id":"e8","fromNode":"role-operador","fromSide":"bottom","toNode":"perm-delete","toSide":"top"},
+		{"id":"e9","fromNode":"perm-create","fromSide":"bottom","toNode":"resource-machines","toSide":"top"},
+		{"id":"e10","fromNode":"perm-read","fromSide":"bottom","toNode":"resource-orders","toSide":"top"},
+		{"id":"e11","fromNode":"perm-update","fromSide":"bottom","toNode":"resource-logs","toSide":"top"},
+		{"id":"e12","fromNode":"perm-delete","fromSide":"bottom","toNode":"resource-users","toSide":"top"}
+	]
 }

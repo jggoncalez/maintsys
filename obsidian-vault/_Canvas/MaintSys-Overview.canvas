@@ -1,224 +1,32 @@
 {
-  "nodes": [
-    {
-      "id": "maintsys-project",
-      "type": "text",
-      "text": "🏭 MAINTSYS\nSistema de Manutenção Industrial 4.0",
-      "x": 0,
-      "y": -250,
-      "width": 250,
-      "height": 100,
-      "color": "#4a90e2"
-    },
-    {
-      "id": "tech-stack",
-      "type": "text",
-      "text": "💻 STACK\nLaravel 11\nFilament v3\nSpatie Permission\nMySQL 8.0+",
-      "x": -400,
-      "y": -100,
-      "width": 200,
-      "height": 140,
-      "color": "#9b59b6"
-    },
-    {
-      "id": "users",
-      "type": "text",
-      "text": "👥 USUÁRIOS\nAdmin\nGerente\nTécnico\nOperador",
-      "x": -100,
-      "y": 100,
-      "width": 150,
-      "height": 130,
-      "color": "#e74c3c"
-    },
-    {
-      "id": "machines",
-      "type": "text",
-      "text": "🏢 MÁQUINAS\nSerial Number\nStatus (4 tipos)\nInstalação\nÚltima Leitura",
-      "x": 150,
-      "y": 100,
-      "width": 150,
-      "height": 130,
-      "color": "#f39c12"
-    },
-    {
-      "id": "service-orders",
-      "type": "text",
-      "text": "📋 ORDENS DE SERVIÇO\nPreventiva/Corretiva\nPriority 4 níveis\nStatus 4 estados\nResolução",
-      "x": 400,
-      "y": 100,
-      "width": 150,
-      "height": 130,
-      "color": "#27ae60"
-    },
-    {
-      "id": "alerts",
-      "type": "text",
-      "text": "🚨 ALERTAS\nMudança Status\nNotificações\nHistórico\nDashboard",
-      "x": 650,
-      "y": 100,
-      "width": 150,
-      "height": 130,
-      "color": "#e67e22"
-    },
-    {
-      "id": "mqtt",
-      "type": "text",
-      "text": "📡 IoT/MQTT\nESP-32 Sensors\nTemperatura\nVibração\nRPM\n\n(Futuro)",
-      "x": -650,
-      "y": 100,
-      "width": 150,
-      "height": 150,
-      "color": "#3498db"
-    },
-    {
-      "id": "dashboard",
-      "type": "text",
-      "text": "📊 DASHBOARD\n4 Stats Cards\nWidgets em Tempo Real\nGráficos\nAlertas Críticos",
-      "x": 0,
-      "y": 350,
-      "width": 200,
-      "height": 130,
-      "color": "#16a085"
-    },
-    {
-      "id": "db",
-      "type": "text",
-      "text": "🗄️ BANCO DE DADOS\n6 Tabelas\nRelacionamentos\nÍndices\nConstraints",
-      "x": -300,
-      "y": 350,
-      "width": 180,
-      "height": 130,
-      "color": "#34495e"
-    },
-    {
-      "id": "auth",
-      "type": "text",
-      "text": "🔐 AUTENTICAÇÃO\nFilament Auth\nSpatie Roles\nPolices\nMiddleware",
-      "x": 300,
-      "y": 350,
-      "width": 180,
-      "height": 130,
-      "color": "#8e44ad"
-    },
-    {
-      "id": "docs-diagramas",
-      "type": "link",
-      "file": "DIAGRAMAS.md",
-      "x": -650,
-      "y": 350,
-      "width": 150,
-      "height": 60,
-      "color": "#3498db"
-    },
-    {
-      "id": "docs-requisitos",
-      "type": "link",
-      "file": "01-Requisitos.md",
-      "x": 600,
-      "y": 350,
-      "width": 150,
-      "height": 60,
-      "color": "#e74c3c"
-    }
-  ],
-  "edges": [
-    {
-      "id": "proj-stack",
-      "fromNode": "maintsys-project",
-      "fromSide": "left",
-      "toNode": "tech-stack",
-      "toSide": "top"
-    },
-    {
-      "id": "proj-users",
-      "fromNode": "maintsys-project",
-      "fromSide": "bottom",
-      "toNode": "users",
-      "toSide": "top"
-    },
-    {
-      "id": "proj-machines",
-      "fromNode": "maintsys-project",
-      "fromSide": "bottom",
-      "toNode": "machines",
-      "toSide": "top"
-    },
-    {
-      "id": "proj-orders",
-      "fromNode": "maintsys-project",
-      "fromSide": "bottom",
-      "toNode": "service-orders",
-      "toSide": "top"
-    },
-    {
-      "id": "proj-alerts",
-      "fromNode": "maintsys-project",
-      "fromSide": "right",
-      "toNode": "alerts",
-      "toSide": "top"
-    },
-    {
-      "id": "mqtt-machines",
-      "fromNode": "mqtt",
-      "fromSide": "right",
-      "toNode": "machines",
-      "toSide": "left"
-    },
-    {
-      "id": "machines-orders",
-      "fromNode": "machines",
-      "fromSide": "bottom",
-      "toNode": "service-orders",
-      "toSide": "top"
-    },
-    {
-      "id": "orders-alerts",
-      "fromNode": "service-orders",
-      "fromSide": "bottom",
-      "toNode": "alerts",
-      "toSide": "top"
-    },
-    {
-      "id": "users-dashboard",
-      "fromNode": "users",
-      "fromSide": "bottom",
-      "toNode": "dashboard",
-      "toSide": "left"
-    },
-    {
-      "id": "machines-dashboard",
-      "fromNode": "machines",
-      "fromSide": "bottom",
-      "toNode": "dashboard",
-      "toSide": "top"
-    },
-    {
-      "id": "alerts-dashboard",
-      "fromNode": "alerts",
-      "fromSide": "bottom",
-      "toNode": "dashboard",
-      "toSide": "right"
-    },
-    {
-      "id": "db-users",
-      "fromNode": "db",
-      "fromSide": "right",
-      "toNode": "users",
-      "toSide": "left"
-    },
-    {
-      "id": "db-machines",
-      "fromNode": "db",
-      "fromSide": "right",
-      "toNode": "machines",
-      "toSide": "left"
-    },
-    {
-      "id": "auth-users",
-      "fromNode": "auth",
-      "fromSide": "left",
-      "toNode": "users",
-      "toSide": "right"
-    }
-  ]
+	"nodes":[
+		{"id":"maintsys-project","type":"text","text":"🏭 MAINTSYS\nSistema de Manutenção Industrial 4.0","x":0,"y":-250,"width":250,"height":100,"color":"#4a90e2"},
+		{"id":"tech-stack","type":"text","text":"💻 STACK\nLaravel 11\nFilament v3\nSpatie Permission\nMySQL 8.0+","x":-400,"y":-100,"width":200,"height":140,"color":"#9b59b6"},
+		{"id":"users","type":"text","text":"👥 USUÁRIOS\nAdmin\nGerente\nTécnico\nOperador","x":-100,"y":100,"width":150,"height":130,"color":"#e74c3c"},
+		{"id":"machines","type":"text","text":"🏢 MÁQUINAS\nSerial Number\nStatus (4 tipos)\nInstalação\nÚltima Leitura","x":150,"y":100,"width":150,"height":130,"color":"#f39c12"},
+		{"id":"service-orders","type":"text","text":"📋 ORDENS DE SERVIÇO\nPreventiva/Corretiva\nPriority 4 níveis\nStatus 4 estados\nResolução","x":400,"y":100,"width":150,"height":130,"color":"#27ae60"},
+		{"id":"alerts","type":"text","text":"🚨 ALERTAS\nMudança Status\nNotificações\nHistórico\nDashboard","x":650,"y":100,"width":150,"height":130,"color":"#e67e22"},
+		{"id":"mqtt","type":"text","text":"📡 IoT/MQTT\nESP-32 Sensors\nTemperatura\nVibração\nRPM\n\n(Futuro)","x":-650,"y":100,"width":150,"height":150,"color":"#3498db"},
+		{"id":"dashboard","type":"text","text":"📊 DASHBOARD\n4 Stats Cards\nWidgets em Tempo Real\nGráficos\nAlertas Críticos","x":0,"y":350,"width":200,"height":130,"color":"#16a085"},
+		{"id":"db","type":"text","text":"🗄️ BANCO DE DADOS\n6 Tabelas\nRelacionamentos\nÍndices\nConstraints","x":-300,"y":350,"width":180,"height":130,"color":"#34495e"},
+		{"id":"auth","type":"text","text":"🔐 AUTENTICAÇÃO\nFilament Auth\nSpatie Roles\nPolices\nMiddleware","x":300,"y":350,"width":180,"height":130,"color":"#8e44ad"},
+		{"id":"docs-diagramas","type":"link","file":"DIAGRAMAS.md","x":-650,"y":350,"width":150,"height":60,"color":"#3498db"},
+		{"id":"docs-requisitos","type":"link","file":"01-Requisitos.md","x":600,"y":350,"width":150,"height":60,"color":"#e74c3c"}
+	],
+	"edges":[
+		{"id":"proj-stack","fromNode":"maintsys-project","fromSide":"left","toNode":"tech-stack","toSide":"top"},
+		{"id":"proj-users","fromNode":"maintsys-project","fromSide":"bottom","toNode":"users","toSide":"top"},
+		{"id":"proj-machines","fromNode":"maintsys-project","fromSide":"bottom","toNode":"machines","toSide":"top"},
+		{"id":"proj-orders","fromNode":"maintsys-project","fromSide":"bottom","toNode":"service-orders","toSide":"top"},
+		{"id":"proj-alerts","fromNode":"maintsys-project","fromSide":"right","toNode":"alerts","toSide":"top"},
+		{"id":"mqtt-machines","fromNode":"mqtt","fromSide":"right","toNode":"machines","toSide":"left"},
+		{"id":"machines-orders","fromNode":"machines","fromSide":"bottom","toNode":"service-orders","toSide":"top"},
+		{"id":"orders-alerts","fromNode":"service-orders","fromSide":"bottom","toNode":"alerts","toSide":"top"},
+		{"id":"users-dashboard","fromNode":"users","fromSide":"bottom","toNode":"dashboard","toSide":"left"},
+		{"id":"machines-dashboard","fromNode":"machines","fromSide":"bottom","toNode":"dashboard","toSide":"top"},
+		{"id":"alerts-dashboard","fromNode":"alerts","fromSide":"bottom","toNode":"dashboard","toSide":"right"},
+		{"id":"db-users","fromNode":"db","fromSide":"right","toNode":"users","toSide":"left"},
+		{"id":"db-machines","fromNode":"db","fromSide":"right","toNode":"machines","toSide":"left"},
+		{"id":"auth-users","fromNode":"auth","fromSide":"left","toNode":"users","toSide":"right"}
+	]
 }

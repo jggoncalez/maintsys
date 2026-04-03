@@ -279,4 +279,86 @@ $recurringDefects = MaintenanceLog::where('defect_type', '!=', null)
 
 ---
 
+---
+
 *[[_Documentação/README]] | [[_Documentação/07-Checklist]]*
+
+---
+
+## 🔗 Chave Estrangeira (FK) Constraints
+
+| Foreign Key | References | Delete Action | Notes |
+|-------------|-----------|---|---|
+| service_orders.machine_id | machines.id | CASCADE | O.S. deletada com máquina |
+| service_orders.technician_id | users.id | RESTRICT | Impede deletar user sem reatribuir O.S. |
+| service_orders.created_by | users.id | RESTRICT | Impede deletar user criador |
+| maintenance_logs.machine_id | machines.id | CASCADE | Logs deletados com máquina |
+| maintenance_logs.service_order_id | service_orders.id | SET NULL | Preserva log mesmo se O.S. deletada |
+| maintenance_logs.user_id | users.id | RESTRICT | Preserva auditoria |
+| machine_readings.machine_id | machines.id | CASCADE | Readings deletadas com máquina |
+| status_alerts.machine_id | machines.id | CASCADE | Alertas deletados com máquina |
+| status_alerts.triggered_by | users.id | SET NULL | Preserva alerta mesmo se user deletado |
+
+---
+
+## 📑 Índices para Performance
+
+| Tabela | Índice | Tipo | Propósito |
+|--------|--------|------|----------|
+| machines | idx_status | INDEX | Queries por status (scopes) |
+| machines | idx_location | INDEX | Filtros por localização |
+| machines | uk_serial_number | UNIQUE | Enforça unicidade |
+| service_orders | idx_machine_id | INDEX | Relação com máquina |
+| service_orders | idx_technician_id | INDEX | Atribuição |
+| service_orders | idx_status | INDEX | Queries de estado |
+| maintenance_logs | idx_machine_id | INDEX | Relação |
+| maintenance_logs | idx_defect_type | INDEX | Análise de padrões |
+| machine_readings | idx_machine_id | INDEX | Sensores por máquina |
+| status_alerts | idx_is_read | INDEX | Widget de alertas |
+
+---
+
+## 🔍 Queries SQL Essenciais
+
+### Dashboard Stats
+```sql
+SELECT
+    COUNT(*) as total_machines,
+    COUNT(CASE WHEN status = 'operational' THEN 1 END) as operational,
+    COUNT(CASE WHEN status = 'critical' THEN 1 END) as critical
+FROM machines;
+```
+
+### O.S. Abertas
+```sql
+SELECT so.*, m.name, u.name as technician
+FROM service_orders so
+JOIN machines m ON so.machine_id = m.id
+LEFT JOIN users u ON so.technician_id = u.id
+WHERE so.status IN ('open', 'in_progress')
+ORDER BY so.priority DESC;
+```
+
+### Histórico de Máquina
+```sql
+SELECT ml.*, u.name, so.title
+FROM maintenance_logs ml
+JOIN users u ON ml.user_id = u.id
+LEFT JOIN service_orders so ON ml.service_order_id = so.id
+WHERE ml.machine_id = ?
+ORDER BY ml.logged_at DESC;
+```
+
+---
+
+## 📈 Normalização (3NF)
+
+✅ **1NF:** Atomicidade garantida
+✅ **2NF:** Sem dependências parciais
+✅ **3NF:** Sem dependências transitivas
+
+---
+
+*Diagrama ER — MaintSys v1.0 — Expandido*
+*Com constraints, índices e queries SQL*
+*2026-04-03*
