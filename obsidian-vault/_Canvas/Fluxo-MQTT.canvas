@@ -1,0 +1,237 @@
+{
+  "nodes": [
+    {
+      "id": "mqtt-title",
+      "type": "text",
+      "text": "📡 IoT/MQTT Flow\n(Futuro - Phase 5)",
+      "x": 0,
+      "y": -300,
+      "width": 150,
+      "height": 80,
+      "color": "#3498db"
+    },
+    {
+      "id": "esp32-device",
+      "type": "text",
+      "text": "🤖 ESP-32\nSensores:\n• Temperatura\n• Vibração\n• RPM\n• Pressão",
+      "x": -500,
+      "y": -50,
+      "width": 140,
+      "height": 140,
+      "color": "#2ecc71"
+    },
+    {
+      "id": "mqtt-publish",
+      "type": "text",
+      "text": "📤 MQTT\nPUBLISH\n\nTopic:\nmaintsys/machine/\nSN-2024-001/sensors",
+      "x": -200,
+      "y": -50,
+      "width": 140,
+      "height": 160,
+      "color": "#9b59b6"
+    },
+    {
+      "id": "mqtt-broker",
+      "type": "text",
+      "text": "🔗 MOSQUITTO\nMQTT BROKER\n\nPort: 1883\nProtocol: TCP",
+      "x": 100,
+      "y": -50,
+      "width": 140,
+      "height": 140,
+      "color": "#34495e"
+    },
+    {
+      "id": "mqtt-subscribe",
+      "type": "text",
+      "text": "📥 LARAVEL\nSUBSCRIBE\n\nMqttListener\nCommand",
+      "x": 400,
+      "y": -50,
+      "width": 140,
+      "height": 140,
+      "color": "#e67e22"
+    },
+    {
+      "id": "payload-decode",
+      "type": "text",
+      "text": "🔍 DECODE\nJSON Payload\n\nExtract values:\ntemp, vibration\nrpm, pressure",
+      "x": 700,
+      "y": -50,
+      "width": 140,
+      "height": 140,
+      "color": "#f39c12"
+    },
+    {
+      "id": "reading-save",
+      "type": "text",
+      "text": "💾 SAVE\nMachineReading\n\nsensor_key\nvalue\nread_at",
+      "x": -200,
+      "y": 200,
+      "width": 140,
+      "height": 130,
+      "color": "#27ae60"
+    },
+    {
+      "id": "anomaly-check",
+      "type": "text",
+      "text": "⚠️ ANOMALY\nCHECK\n\nTemp > 80°C?\nVibration > 5?",
+      "x": 100,
+      "y": 200,
+      "width": 140,
+      "height": 130,
+      "color": "#f39c12"
+    },
+    {
+      "id": "status-update",
+      "type": "text",
+      "text": "🚨 STATUS\nUPDATE\n\nMachine →\ncritical",
+      "x": 400,
+      "y": 200,
+      "width": 140,
+      "height": 130,
+      "color": "#e74c3c"
+    },
+    {
+      "id": "event-broadcast",
+      "type": "text",
+      "text": "📻 BROADCAST\nEvent\n\nSensorReading\nReceived",
+      "x": 700,
+      "y": 200,
+      "width": 140,
+      "height": 130,
+      "color": "#3498db"
+    },
+    {
+      "id": "websocket-send",
+      "type": "text",
+      "text": "🌐 WEBSOCKET\nLaravel Echo\n\nReal-time\nto Dashboard",
+      "x": -500,
+      "y": 400,
+      "width": 140,
+      "height": 130,
+      "color": "#16a085"
+    },
+    {
+      "id": "dashboard-update",
+      "type": "text",
+      "text": "📊 DASHBOARD\nUPDATA\n\nGráfico\nAtualiza <1s",
+      "x": -200,
+      "y": 400,
+      "width": 140,
+      "height": 130,
+      "color": "#16a085"
+    },
+    {
+      "id": "alert-created",
+      "type": "text",
+      "text": "🚨 ALERT\nCREATED\n\nStatusAlert\nIN DB",
+      "x": 100,
+      "y": 400,
+      "width": 140,
+      "height": 130,
+      "color": "#e74c3c"
+    },
+    {
+      "id": "notify-users",
+      "type": "text",
+      "text": "📧 NOTIFY\nGERENCE\n\nNotification\nDashboard",
+      "x": 400,
+      "y": 400,
+      "width": 140,
+      "height": 130,
+      "color": "#e67e22"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "fromNode": "mqtt-title",
+      "fromSide": "bottom",
+      "toNode": "esp32-device",
+      "toSide": "top"
+    },
+    {
+      "id": "e2",
+      "fromNode": "esp32-device",
+      "fromSide": "right",
+      "toNode": "mqtt-publish",
+      "toSide": "left"
+    },
+    {
+      "id": "e3",
+      "fromNode": "mqtt-publish",
+      "fromSide": "right",
+      "toNode": "mqtt-broker",
+      "toSide": "left"
+    },
+    {
+      "id": "e4",
+      "fromNode": "mqtt-broker",
+      "fromSide": "right",
+      "toNode": "mqtt-subscribe",
+      "toSide": "left"
+    },
+    {
+      "id": "e5",
+      "fromNode": "mqtt-subscribe",
+      "fromSide": "right",
+      "toNode": "payload-decode",
+      "toSide": "left"
+    },
+    {
+      "id": "e6",
+      "fromNode": "payload-decode",
+      "fromSide": "bottom",
+      "toNode": "reading-save",
+      "toSide": "top"
+    },
+    {
+      "id": "e7",
+      "fromNode": "reading-save",
+      "fromSide": "right",
+      "toNode": "anomaly-check",
+      "toSide": "left"
+    },
+    {
+      "id": "e8",
+      "fromNode": "anomaly-check",
+      "fromSide": "right",
+      "toNode": "status-update",
+      "toSide": "left"
+    },
+    {
+      "id": "e9",
+      "fromNode": "status-update",
+      "fromSide": "right",
+      "toNode": "event-broadcast",
+      "toSide": "left"
+    },
+    {
+      "id": "e10",
+      "fromNode": "event-broadcast",
+      "fromSide": "bottom",
+      "toNode": "websocket-send",
+      "toSide": "right"
+    },
+    {
+      "id": "e11",
+      "fromNode": "websocket-send",
+      "fromSide": "right",
+      "toNode": "dashboard-update",
+      "toSide": "left"
+    },
+    {
+      "id": "e12",
+      "fromNode": "status-update",
+      "fromSide": "bottom",
+      "toNode": "alert-created",
+      "toSide": "top"
+    },
+    {
+      "id": "e13",
+      "fromNode": "alert-created",
+      "fromSide": "right",
+      "toNode": "notify-users",
+      "toSide": "left"
+    }
+  ]
+}
