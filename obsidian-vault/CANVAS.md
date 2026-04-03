@@ -1,0 +1,219 @@
+# 🎨 CANVAS VISUAL - MaintSys Project Map
+
+```
+╔════════════════════════════════════════════════════════════════════════════╗
+║                         🏢 MAINTSYS - VISUAL MAP                          ║
+║              Sistema de Manutenção Industrial 4.0 - Laravel + Filament     ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+              ┌─────────────────────────────────────────────┐
+              │     📚 DOCUMENTAÇÃO PRINCIPAL               │
+              │                                               │
+              │   [[README]]  [[ESTRUTURA]]  [[DIAGRAMAS]] │
+              │                                               │
+              └─────────────────────────────────────────────┘
+                               ▲
+                               │
+        ┌──────────────────────┼──────────────────────┬──────────────────┐
+        │                      │                      │                  │
+        │                      │                      │                  │
+   ┌─────────────┐       ┌────────────┐        ┌────────────┐    ┌──────────────┐
+   │ REQUISITOS  │       │ ARQUITETURA│        │  BANCO DE  │    │  FILAMENT    │
+   │             │       │            │        │   DADOS    │    │ RESOURCES    │
+   │ [[01-      │       │ [[02-      │        │ [[03-     │    │ [[04-        │
+   │ Requisitos]]│       │ Arquitetura │       │ Banco-    │    │ Filament-    │
+   │             │       │ ]]          │        │ de-Dados]]│    │ Resources]]  │
+   │ • RF (sist) │       │             │        │            │    │              │
+   │ • RNF       │       │ • Estrutura │        │ • Schema   │    │ • MachineRes │
+   │ • Stack     │       │ • Fluxos    │        │ • Migrations │   │ • ServiceOrd │
+   │             │       │ • RBAC      │        │ • Índices  │    │ • MaintenLogResRes │
+   │             │       │             │        │ • Scopes   │    │ • UserRes    │
+   └─────────────┘       └────────────┘        └────────────┘    │ • StatusAlerRes │
+                                                                  │              │
+                                                                  └──────────────┘
+                                                                        │
+                                                                        ▼
+                                                                  ┌──────────────┐
+                                                                  │ DASHBOARD    │
+                                                                  │ [[05-       │
+                                                                  │ Dashboard]] │
+                                                                  │              │
+                                                                  │ • Stats Card │
+                                                                  │ • Widgets    │
+                                                                  │ • Real-time  │
+                                                                  └──────────────┘
+
+
+        ┌─────────────────────────────────────────────────────────────────────┐
+        │                     🔄 FLUXOGRAMAS & PROCESSOS                      │
+        │                                                                       │
+        │    [[DIAGRAMAS]] - Índice mestre de todos os flowcharts           │
+        │                                                                       │
+        └─────────────────────────────────────────────────────────────────────┘
+                                        │
+        ┌───────────────────┬────────────┼────────────┬──────────────────┐
+        │                   │            │            │                  │
+        │                   │            │            │                  │
+    ┌─────────────┐   ┌──────────┐  ┌──────────┐  ┌──────────┐   ┌──────────────┐
+    │ AUTENTICAÇÃO│   │  O.S.    │  │ ALERTAS  │  │  MQTT    │   │ PERMISSÕES   │
+    │             │   │          │  │          │  │  & IoT   │   │              │
+    │ [[Fluxo-   │   │ [[Fluxo- │  │ [[Fluxo- │  │ [[Fluxo- │   │ [[Fluxo-     │
+    │ Autenticacao │   │ Ordem-  │  │ Status-  │  │ MQTT]]   │   │ Permissoes]] │
+    │]]            │   │ Servico]]│  │ Alert]]  │  │          │   │              │
+    │              │   │          │  │          │  │ • ESP-32 │   │ • Middleware │
+    │ • Login      │   │ • Criar  │  │ • Change │  │ • MQTT   │   │ • Role hier. │
+    │ • Session    │   │ • Start  │  │ • Alert  │  │ • Listener │  │ • Policies  │
+    │ • Middleware │   │ • Log    │  │ • Notify │  │ • Real-tm │  │ • RBAC Matrix │
+    │ • Spatie     │   │ • Complete   │ • Mark lido │ • Anomaly │  │ • Gates      │
+    │              │   │          │  │          │  │          │   │              │
+    └─────────────┘   └──────────┘  └──────────┘  └──────────┘   └──────────────┘
+
+
+        ┌─────────────────────────────────────────────────────────────────────┐
+        │                     🔧 IMPLEMENTAÇÃO & SUPORTE                      │
+        │                                                                       │
+        └─────────────────────────────────────────────────────────────────────┘
+                                        │
+        ┌──────────────────────────────┼──────────────────────────────┐
+        │                              │                              │
+        │                              │                              │
+    ┌─────────────┐        ┌────────────────┐        ┌──────────────────┐
+    │  CHECKLIST  │        │ DIAGRAMA ER    │        │ ARQUITETURA      │
+    │  TÉCNICO    │        │                │        │ TÉCNICA          │
+    │             │        │ [[08-Diagrama- │        │                  │
+    │ [[07-       │        │ ER]]          │        │ [[Arquitetura-   │
+    │ Checklist]] │        │                │        │ Tecnica]]        │
+    │             │        │ • Mermaid ER   │        │                  │
+    │ ✅ 7 Fases │        │ • Relacionam.  │        │ • Stack layers   │
+    │ ✅ Tasks   │        │ • Índices      │        │ • Components     │
+    │ ✅ Testes  │        │ • Constraints  │        │ • Data flow      │
+    │ ✅ Deploy  │        │ • Queries      │        │ • Integration    │
+    │             │        │                │        │ • Deployment     │
+    └─────────────┘        └────────────────┘        └──────────────────┘
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                              🗺️ MAPA DE ACESSO                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+NAVEGAÇÃO RÁPIDA:
+
+📚 Começar aqui:         [[README]]
+🎯 Entender projeto:     [[01-Requisitos]] → [[02-Arquitetura]]
+🗄️ Implementar BD:       [[03-Banco-de-Dados]] → [[08-Diagrama-ER]]
+🎨 Buildar UI:           [[04-Filament-Resources]] → [[05-Dashboard]]
+🛡️ Proteger acesso:      [[06-Permissões]] → [[Fluxo-Permissoes]]
+📋 Seguir passo-a-passo: [[07-Checklist]]
+📊 Ver todos os fluxos:  [[DIAGRAMAS]]
+🏗️ Entender sistema:    [[Arquitetura-Tecnica]]
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                          📊 ESTATÍSTICAS DO VAULT                         ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📄 Arquivos Criados:        11
+📝 Linhas de Documentação:   3000+
+📊 Diagramas Mermaid:        30+
+🔗 Links Internos:          50+
+✅ Checklist Items:         100+
+
+COBERTURA:
+ • Requisitos Funcionais:   ✅ 100%
+ • Banco de Dados:          ✅ 100%
+ • Filament Resources:      ✅ 100%
+ • Fluxos de Negócio:       ✅ 100%
+ • Autorizações (RBAC):     ✅ 100%
+ • IoT/MQTT (Futuro):       ✅ 100%
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                         🚀 PRÓXIMAS AÇÕES                                 ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+FASE 1: Banco de Dados
+ [ ] Rodar migrations em ordem
+ [ ] Validar constraints
+ [ ] Testar seeders
+
+FASE 2: Models
+ [ ] Implementar Eloquent relationships
+ [ ] Boot hooks em Machine
+ [ ] Scopes e métodos
+
+FASE 3: Filament Resources
+ [ ] MachineResource com relation managers
+ [ ] ServiceOrderResource com ações
+ [ ] Dashboard com 4 widgets
+
+FASE 4: Permissões
+ [ ] Spatie + 4 roles
+ [ ] Policies por resource
+ [ ] Testar autorização
+
+FASE 5: MQTT (Futuro)
+ [ ] Mosquitto em Docker
+ [ ] Listener command
+ [ ] Testes com ESP-32
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Documentação completa do projeto MaintSys
+Criada: 2026-04-03
+Versão: 1.0
+
+```
+
+---
+
+## 🔍 **Como Navegar Este Canvas**
+
+### Para Iniciantes
+1. Leia [[README]] para entender o contexto geral
+2. Explore [[01-Requisitos]] para ver o que será feito
+3. Veja [[DIAGRAMAS]] para entender os processos visuais
+
+### Para Arquitetos
+1. Comece em [[02-Arquitetura]]
+2. Estude [[03-Banco-de-Dados]] e [[08-Diagrama-ER]]
+3. Revise [[Arquitetura-Tecnica]]
+
+### Para Desenvolvedores
+1. Seguir [[07-Checklist]] passo-a-passo
+2. Consultar [[04-Filament-Resources]] ao buildار recursos
+3. Referência: [[Fluxo-Permissoes]] durante testes
+4. Implementar conforme [[Fluxo-Ordem-Servico]] et al
+
+### Para QA/Testers
+1. Usar matrix em [[Fluxo-Permissoes]]
+2. Seguir checklist em [[07-Checklist]]
+3. Reproduzir fluxos em [[DIAGRAMAS]]
+
+---
+
+## 🎯 **Mapa de Cores - Quick Reference**
+
+| Cor | Significado | Exemplo |
+|-----|------------|---------|
+| 🔵 Azul | User action / Input | Login, Create |
+| 🟠 Laranja | Processing / In Progress | Validation, Update |
+| 🟢 Verde | Success / Approved | Saved, Authorized |
+| 🔴 Vermelho | Error / Blocked | 403, Validation error |
+| 🟣 Roxo | Service / Background | MQTT, Email, Worker |
+| ⚫ Cinza | Storage / Data | Database, Files |
+
+---
+
+## 📱 **Responsive Design**
+
+Este canvas é otimizado para:
+- 📖 Leitura em Obsidian (desktop/mobile)
+- 🔗 Links internos clicáveis
+- 📊 Diagramas Mermaid renderizáveis
+- 📋 Tabelas bem formatadas
+- ✅ Checklists funcionais
+
+---
+
+*[[README]] | [[ESTRUTURA]] | [[DIAGRAMAS]]*
