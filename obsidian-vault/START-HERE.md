@@ -11,6 +11,8 @@ obsidian-vault/
 │
 ├── 📖 _Documentação/          ← Especificação & Guias
 │   ├── README.md              ← Comece aqui
+│   ├── LEVANTAMENTO-REQUISITOS.md ← Requisitos detalhados
+│   ├── METODOLOGIA-DESENVOLVIMENTO.md ← Metodologia de dev
 │   ├── DIAGRAMAS.md           ← Índice de fluxogramas
 │   ├── ESTRUTURA.md           ← Estrutura da documentação
 │   ├── RESUMO.md              ← O que foi criado
@@ -53,11 +55,18 @@ obsidian-vault/
 
 ### 1️⃣ **Compreender o Projeto**
 ```
-_Documentação/README.md           ← Leia primeiro
+_Documentação/README.md                 ← Leia primeiro
 ↓
-_Documentação/01-Requisitos.md    ← Entenda requisitos
+_Documentação/LEVANTAMENTO-REQUISITOS.md ← Entenda requisitos
 ↓
-_Documentação/02-Arquitetura.md   ← Entenda design
+_Documentação/02-Arquitetura.md         ← Entenda design
+```
+
+### 1️⃣b **Entender Metodologia**
+```
+_Documentação/METODOLOGIA-DESENVOLVIMENTO.md ← Workflow & padrões
+↓
+Siga os padrões durante implementação
 ```
 
 ### 2️⃣ **Ver Diagramas Visuais**
@@ -100,8 +109,10 @@ _Fluxogramas/                     ← Consulte quando necessário
 
 ## 📊 Conteúdo Disponível
 
-### 📖 14 Arquivos de Documentação
-- ✅ Requisitos funcionais e não-funcionais
+### 📖 16 Arquivos de Documentação
+- ✅ Levantamento de Requisitos (completo)
+- ✅ Metodologia de Desenvolvimento (padrões + workflows)
+- ✅ Especificação de Requisitos (RF + RNF)
 - ✅ Arquitetura e design patterns
 - ✅ Schema SQL completo
 - ✅ Filament resources completos
