@@ -1,244 +1,34 @@
 {
-  "nodes": [
-    {
-      "id": "user-class",
-      "type": "text",
-      "text": "👤 USER\n\nAttributes:\n- id (PK)\n- name\n- email\n- password\n\nMethods:\n- hasRole()\n- hasPermissionTo()\n- can()\n\nRelations:\n- serviceOrders()\n- roles() N-N",
-      "x": -600,
-      "y": 0,
-      "width": 180,
-      "height": 200,
-      "color": "#3498db"
-    },
-    {
-      "id": "role-class",
-      "type": "text",
-      "text": "🛡️ ROLE\n(Spatie)\n\nConstants:\n- ADMIN\n- GERENTE\n- TECNICO\n- OPERADOR\n\nRelations:\n- users() N-N\n- permissions() N-N",
-      "x": -600,
-      "y": 250,
-      "width": 180,
-      "height": 160,
-      "color": "#9b59b6"
-    },
-    {
-      "id": "permission-class",
-      "type": "text",
-      "text": "🔐 PERMISSION\n(Spatie)\n\nConstants:\n- machine.create\n- machine.update\n- machine.delete\n- ... (per resource)",
-      "x": -300,
-      "y": 250,
-      "width": 180,
-      "height": 140,
-      "color": "#8e44ad"
-    },
-    {
-      "id": "machine-class",
-      "type": "text",
-      "text": "🏢 MACHINE\n\nAttributes:\n- id (PK)\n- serial_number ★\n- name, model\n- location, status\n- installed_at\n- last_reading_at\n\nScopes:\n- operational()\n- critical()\n\nBoot Hook:\n- Cria StatusAlert\n- Notifica",
-      "x": 0,
-      "y": 0,
-      "width": 180,
-      "height": 220,
-      "color": "#f39c12"
-    },
-    {
-      "id": "service-order-class",
-      "type": "text",
-      "text": "📋 SERVICE_ORDER\n\nAttributes:\n- id (PK)\n- machine_id (FK)\n- technician_id (FK)\n- type (preventive/corrective)\n- priority (enum)\n- status (enum)\n- started_at, completed_at\n\nMethods:\n- isOpen()\n- start()\n- complete(notes)",
-      "x": 300,
-      "y": 0,
-      "width": 180,
-      "height": 220,
-      "color": "#27ae60"
-    },
-    {
-      "id": "maintenance-log-class",
-      "type": "text",
-      "text": "📝 MAINTENANCE_LOG\n\nAttributes:\n- id (PK)\n- machine_id (FK)\n- service_order_id (FK)\n- user_id (FK)\n- action (string)\n- defect_type\n- logged_at\n\nRelations:\n- machine()\n- serviceOrder()\n- user()",
-      "x": 300,
-      "y": 250,
-      "width": 180,
-      "height": 200,
-      "color": "#16a085"
-    },
-    {
-      "id": "machine-reading-class",
-      "type": "text",
-      "text": "📊 MACHINE_READING\n\nAttributes:\n- id (PK)\n- machine_id (FK)\n- sensor_key\n- value (decimal)\n- unit\n- read_at (timestamp)\n\nExamples:\n- temperature (°C)\n- vibration (mm/s)\n- rpm (RPM)",
-      "x": 600,
-      "y": 0,
-      "width": 180,
-      "height": 200,
-      "color": "#3498db"
-    },
-    {
-      "id": "status-alert-class",
-      "type": "text",
-      "text": "🚨 STATUS_ALERT\n\nAttributes:\n- id (PK)\n- machine_id (FK)\n- triggered_by (FK)\n- previous_status\n- new_status\n- message\n- is_read\n- triggered_at\n\nTrigger: Boot Hook",
-      "x": 600,
-      "y": 250,
-      "width": 180,
-      "height": 200,
-      "color": "#e74c3c"
-    },
-    {
-      "id": "enum-status",
-      "type": "text",
-      "text": "⚙️ Status\n(Enum)\n\n- operational\n- maintenance\n- critical\n- offline",
-      "x": 0,
-      "y": 300,
-      "width": 130,
-      "height": 120,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "enum-os-type",
-      "type": "text",
-      "text": "⚙️ OSType\n(Enum)\n\n- preventive\n- corrective",
-      "x": 150,
-      "y": 300,
-      "width": 130,
-      "height": 100,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "enum-priority",
-      "type": "text",
-      "text": "⚙️ Priority\n(Enum)\n\n- low\n- medium\n- high\n- critical",
-      "x": 300,
-      "y": 300,
-      "width": 130,
-      "height": 120,
-      "color": "#95a5a6"
-    },
-    {
-      "id": "filament-resource",
-      "type": "text",
-      "text": "🎨 FILAMENT RESOURCES\n\n- MachineResource\n- ServiceOrderResource\n- MaintenanceLogResource\n- StatusAlertResource\n- UserResource",
-      "x": -900,
-      "y": 0,
-      "width": 150,
-      "height": 140,
-      "color": "#1abc9c"
-    },
-    {
-      "id": "policies",
-      "type": "text",
-      "text": "📋 POLICIES\n\n- MachinePolicy\n- ServiceOrderPolicy\n- MaintenanceLogPolicy\n- StatusAlertPolicy",
-      "x": -900,
-      "y": 180,
-      "width": 150,
-      "height": 140,
-      "color": "#2980b9"
-    },
-    {
-      "id": "widgets",
-      "type": "text",
-      "text": "📦 WIDGETS\n\n- StatsOverviewWidget\n- RecentServiceOrders\n- CriticalAlerts\n- MaintenanceLogs",
-      "x": -900,
-      "y": 360,
-      "width": 150,
-      "height": 140,
-      "color": "#e67e22"
-    }
-  ],
-  "edges": [
-    {
-      "id": "user-role",
-      "fromNode": "user-class",
-      "fromSide": "bottom",
-      "toNode": "role-class",
-      "toSide": "top"
-    },
-    {
-      "id": "role-permission",
-      "fromNode": "role-class",
-      "fromSide": "right",
-      "toNode": "permission-class",
-      "toSide": "left"
-    },
-    {
-      "id": "user-machine-so",
-      "fromNode": "user-class",
-      "fromSide": "right",
-      "toNode": "service-order-class",
-      "toSide": "left"
-    },
-    {
-      "id": "user-log",
-      "fromNode": "user-class",
-      "fromSide": "right",
-      "toNode": "maintenance-log-class",
-      "toSide": "left"
-    },
-    {
-      "id": "machine-so",
-      "fromNode": "machine-class",
-      "fromSide": "right",
-      "toNode": "service-order-class",
-      "toSide": "left"
-    },
-    {
-      "id": "machine-reading",
-      "fromNode": "machine-class",
-      "fromSide": "right",
-      "toNode": "machine-reading-class",
-      "toSide": "left"
-    },
-    {
-      "id": "machine-alert",
-      "fromNode": "machine-class",
-      "fromSide": "bottom",
-      "toNode": "status-alert-class",
-      "toSide": "left"
-    },
-    {
-      "id": "so-log",
-      "fromNode": "service-order-class",
-      "fromSide": "bottom",
-      "toNode": "maintenance-log-class",
-      "toSide": "top"
-    },
-    {
-      "id": "machine-enum",
-      "fromNode": "machine-class",
-      "fromSide": "bottom",
-      "toNode": "enum-status",
-      "toSide": "top"
-    },
-    {
-      "id": "so-enum-type",
-      "fromNode": "service-order-class",
-      "fromSide": "bottom",
-      "toNode": "enum-os-type",
-      "toSide": "top"
-    },
-    {
-      "id": "so-enum-priority",
-      "fromNode": "service-order-class",
-      "fromSide": "bottom",
-      "toNode": "enum-priority",
-      "toSide": "top"
-    },
-    {
-      "id": "filament-machine",
-      "fromNode": "filament-resource",
-      "fromSide": "right",
-      "toNode": "machine-class",
-      "toSide": "left"
-    },
-    {
-      "id": "policies-so",
-      "fromNode": "policies",
-      "fromSide": "right",
-      "toNode": "service-order-class",
-      "toSide": "left"
-    },
-    {
-      "id": "widgets-stats",
-      "fromNode": "widgets",
-      "fromSide": "right",
-      "toNode": "machine-class",
-      "toSide": "left"
-    }
-  ]
+	"nodes":[
+		{"id":"service-order-class","type":"text","text":"📋 SERVICE_ORDER\n\nAttributes:\n- id (PK)\n- machine_id (FK)\n- technician_id (FK)\n- type (preventive/corrective)\n- priority (enum)\n- status (enum)\n- started_at, completed_at\n\nMethods:\n- isOpen()\n- start()\n- complete(notes)","x":300,"y":0,"width":180,"height":220,"color":"#27ae60"},
+		{"id":"maintenance-log-class","type":"text","text":"📝 MAINTENANCE_LOG\n\nAttributes:\n- id (PK)\n- machine_id (FK)\n- service_order_id (FK)\n- user_id (FK)\n- action (string)\n- defect_type\n- logged_at\n\nRelations:\n- machine()\n- serviceOrder()\n- user()","x":300,"y":250,"width":180,"height":200,"color":"#16a085"},
+		{"id":"status-alert-class","type":"text","text":"🚨 STATUS_ALERT\n\nAttributes:\n- id (PK)\n- machine_id (FK)\n- triggered_by (FK)\n- previous_status\n- new_status\n- message\n- is_read\n- triggered_at\n\nTrigger: Boot Hook","x":600,"y":250,"width":180,"height":200,"color":"#e74c3c"},
+		{"id":"filament-resource","type":"text","text":"🎨 FILAMENT RESOURCES\n\n- MachineResource\n- ServiceOrderResource\n- MaintenanceLogResource\n- StatusAlertResource\n- UserResource","x":-900,"y":0,"width":150,"height":140,"color":"#1abc9c"},
+		{"id":"policies","type":"text","text":"📋 POLICIES\n\n- MachinePolicy\n- ServiceOrderPolicy\n- MaintenanceLogPolicy\n- StatusAlertPolicy","x":-900,"y":180,"width":150,"height":140,"color":"#2980b9"},
+		{"id":"permission-class","type":"text","text":"🔐 PERMISSION\n(Spatie)\n\nConstants:\n- machine.create\n- machine.update\n- machine.delete\n- ... (per resource)","x":-300,"y":360,"width":180,"height":140,"color":"#8e44ad"},
+		{"id":"widgets","type":"text","text":"📦 WIDGETS\n\n- StatsOverviewWidget\n- RecentServiceOrders\n- CriticalAlerts\n- MaintenanceLogs","x":-900,"y":360,"width":150,"height":140,"color":"#e67e22"},
+		{"id":"enum-status","type":"text","text":"⚙️ Status\n(Enum)\n\n- operational\n- maintenance\n- critical\n- offline","x":0,"y":390,"width":130,"height":120,"color":"#95a5a6"},
+		{"id":"machine-class","type":"text","text":"🏢 MACHINE\n\nAttributes:\n- id (PK)\n- serial_number ★\n- name, model\n- location, status\n- installed_at\n- last_reading_at\n\nScopes:\n- operational()\n- critical()\n\nBoot Hook:\n- Cria StatusAlert\n- Notifica","x":-40,"y":-170,"width":210,"height":490,"color":"#f39c12"},
+		{"id":"enum-os-type","type":"text","text":"⚙️ OSType\n(Enum)\n\n- preventive\n- corrective","x":220,"y":-220,"width":160,"height":160,"color":"#95a5a6"},
+		{"id":"enum-priority","type":"text","text":"⚙️ Priority\n(Enum)\n\n- low\n- medium\n- high\n- critical","x":425,"y":-264,"width":175,"height":204,"color":"#95a5a6"},
+		{"id":"machine-reading-class","type":"text","text":"📊 MACHINE_READING\n\nAttributes:\n- id (PK)\n- machine_id (FK)\n- sensor_key\n- value (decimal)\n- unit\n- read_at (timestamp)\n\nExamples:\n- temperature (°C)\n- vibration (mm/s)\n- rpm (RPM)","x":-380,"y":-420,"width":260,"height":420,"color":"#3498db"},
+		{"id":"user-class","type":"text","text":"👤 USER\n\nAttributes:\n- id (PK)\n- name\n- email\n- password\n\nMethods:\n- hasRole()\n- hasPermissionTo()\n- can()\n\nRelations:\n- serviceOrders()\n- roles() N-N","x":-935,"y":539,"width":220,"height":461,"color":"#3498db"},
+		{"id":"role-class","type":"text","text":"🛡️ ROLE\n(Spatie)\n\nConstants:\n- ADMIN\n- GERENTE\n- TECNICO\n- OPERADOR\n\nRelations:\n- users() N-N\n- permissions() N-N","x":-620,"y":350,"width":220,"height":377,"color":"#9b59b6"}
+	],
+	"edges":[
+		{"id":"user-role","fromNode":"user-class","fromSide":"right","toNode":"role-class","toSide":"left"},
+		{"id":"role-permission","fromNode":"role-class","fromSide":"right","toNode":"permission-class","toSide":"left"},
+		{"id":"user-machine-so","fromNode":"user-class","fromSide":"right","toNode":"service-order-class","toSide":"left"},
+		{"id":"user-log","fromNode":"user-class","fromSide":"right","toNode":"maintenance-log-class","toSide":"left"},
+		{"id":"machine-so","fromNode":"machine-class","fromSide":"right","toNode":"service-order-class","toSide":"left"},
+		{"id":"machine-reading","fromNode":"machine-class","fromSide":"left","toNode":"machine-reading-class","toSide":"bottom"},
+		{"id":"machine-alert","fromNode":"machine-class","fromSide":"bottom","toNode":"status-alert-class","toSide":"left"},
+		{"id":"so-log","fromNode":"service-order-class","fromSide":"bottom","toNode":"maintenance-log-class","toSide":"top"},
+		{"id":"machine-enum","fromNode":"machine-class","fromSide":"bottom","toNode":"enum-status","toSide":"top"},
+		{"id":"filament-machine","fromNode":"filament-resource","fromSide":"right","toNode":"machine-class","toSide":"left"},
+		{"id":"policies-so","fromNode":"policies","fromSide":"right","toNode":"service-order-class","toSide":"left"},
+		{"id":"widgets-stats","fromNode":"widgets","fromSide":"right","toNode":"machine-class","toSide":"left"},
+		{"id":"fd9dc31032de089b","fromNode":"service-order-class","fromSide":"top","toNode":"enum-os-type","toSide":"bottom"},
+		{"id":"f95b91f27b2ccac5","fromNode":"service-order-class","fromSide":"top","toNode":"enum-priority","toSide":"bottom"}
+	]
 }
