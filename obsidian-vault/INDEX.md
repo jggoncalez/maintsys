@@ -11,6 +11,19 @@
 
 ---
 
+## 🎨 Canvas Visuais Interativos (5 arquivos)
+
+Abra diretamente no Obsidian para ver diagramas visuais:
+
+- **[[MaintSys-Overview.canvas]]** — Mapa geral do projeto com relações
+- **[[Fluxo-Autenticacao.canvas]]** — Login flowchart visual
+- **[[Fluxo-Ordem-Servico.canvas]]** — O.S. lifecycle visual
+- **[[Schema-Banco-Dados.canvas]]** — Database schema com FK
+- **[[RBAC-Permissoes.canvas]]** — Roles & permissions visual
+- **[[Fluxo-MQTT.canvas]]** — IoT/ESP-32 flow visual
+
+---
+
 ## 🔍 Procure por Palavra-Chave
 
 ### 🔐 Autenticação & Login
