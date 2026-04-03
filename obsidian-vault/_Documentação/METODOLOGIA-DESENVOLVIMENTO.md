@@ -757,6 +757,391 @@ curl https://maintsys.com/health
 
 ---
 
+## 🔄 Fluxos Principais de Implementação
+
+### Fluxo 1: Sistema de Autenticação & Autorização
+
+```
+User Login Flow:
+1. User visit /admin
+2. Filament Auth middleware
+3. Credentials validation (email + password)
+4. Spatie load roles + permissions
+5. Session created
+6. Dashboard loaded com user roles
+7. Resources habilitados/desabilitados per role
+```
+
+**Verificações:**
+- Auth middleware protege todas as rota
+- Spatie verifica role antes de ação
+- Policies validam em create/edit/delete
+- Logs de acesso negado
+
+---
+
+### Fluxo 2: Criar & Rastrear Ordem de Serviço
+
+```
+Gerente creates O.S. → valida → salva
+              ↓
+Técnico vê em dashboard → clica "Iniciar"
+              ↓
+Status muda: open → in_progress (started_at = now)
+              ↓
+Técnico registra maintenance_logs (ações)
+              ↓
+Técnico clica "Concluir" com resolution_notes
+              ↓
+Status muda: in_progress → completed (completed_at = now)
+              ↓
+Gerente recebe notificação
+              ↓
+Dashboard widget atualiza
+```
+
+---
+
+### Fluxo 3: Alteração Automática de Status + Alerta
+
+```
+Gerente altera Machine status (field select)
+              ↓
+submit form
+              ↓
+MachineController@update
+              ↓
+Machine::update(['status' => 'critical'])
+              ↓
+Boot Hook dispara (updating)
+              ↓
+isDirty('status')? → Sim
+              ↓
+Get previous_status (original) = 'operational'
+Get new_status (novo) = 'critical'
+              ↓
+StatusAlert::create([
+  machine_id,
+  previous_status,
+  new_status,
+  message = "Máquina X mudou de operational para critical",
+  triggered_at = now()
+])
+              ↓
+Notification::make() enviado para todos users
+  - Danger color se critical
+  - Warning color se maintenance
+  - Success color se operational
+              ↓
+Filament Notification enviada
+              ↓
+CriticalAlertsWidget recarrega
+              ↓
+Alerta aparece em Dashboard
+```
+
+---
+
+### Fluxo 4: Detecção de Anomalia (MQTT - Futuro)
+
+```
+ESP-32 lê sensors (temp, vibration, rpm, pressure)
+              ↓
+MQTT publish para maintsys/machine/{serial}/sensors
+              ↓
+Mosquitto MQTT Broker
+              ↓
+Laravel MqttListener subscribe
+              ↓
+Process JSON payload
+              ↓
+Machine::where('serial_number', ...) find
+              ↓
+foreach sensor → MachineReading::create()
+              ↓
+Update Machine->last_reading_at
+              ↓
+Check thresholds (temp > 80, vibration > 5)
+              ↓
+Anomaly detected? → YES
+              ↓
+Event SensorAnomalyDetected dispatch
+              ↓
+Listener mudaстatus para 'critical'
+              ↓
+Boot hook cria StatusAlert
+              ↓
+Notification enviada
+              ↓
+Event broadcast websocket
+              ↓
+Dashboard atualiza em <1s
+```
+
+---
+
+## 📋 Relacionamentos do Modelo (Eloquent)
+
+```
+User (1) ──→ (N) ServiceOrder (technician)
+User (1) ──→ (N) ServiceOrder (created_by)
+User (1) ──→ (N) MaintenanceLog
+User (1) ──→ (N) StatusAlert (triggered_by)
+
+Machine (1) ──→ (N) ServiceOrder
+Machine (1) ──→ (N) MaintenanceLog
+Machine (1) ──→ (N) MachineReading
+Machine (1) ──→ (N) StatusAlert
+
+ServiceOrder (1) ──→ (N) MaintenanceLog
+```
+
+---
+
+## 🎯 Padrões de Implementação por Entity
+
+### Machine Model
+
+```php
+class Machine extends Model {
+    protected $fillable = [
+        'serial_number',
+        'name',
+        'model',
+        'location',
+        'status',
+        'installed_at',
+        'description',
+        'image',
+    ];
+
+    protected $casts = [
+        'installed_at' => 'date',
+        'last_reading_at' => 'datetime',
+    ];
+
+    // Relationships
+    public function serviceOrders() { ... }
+    public function maintenanceLogs() { ... }
+    public function readings() { ... }
+    public function alerts() { ... }
+
+    // Scopes
+    public function scopeOperational($q) { ... }
+    public function scopeInMaintenance($q) { ... }
+    public function scopeCritical($q) { ... }
+    public function scopeOffline($q) { ... }
+
+    // Boot: Auto-create status alerts
+    protected static function boot() { ... }
+}
+```
+
+### ServiceOrder Model
+
+```php
+class ServiceOrder extends Model {
+    protected $fillable = [
+        'machine_id',
+        'technician_id',
+        'created_by',
+        'title',
+        'description',
+        'type',
+        'priority',
+        'status',
+        'started_at',
+        'completed_at',
+        'resolution_notes',
+    ];
+
+    // Relationships
+    public function machine() { ... }
+    public function technician() { ... }
+    public function creator() { ... }
+    public function logs() { ... }
+
+    // Methods
+    public function isOpen() { ... }
+    public function isCritical() { ... }
+    public function start() { ... }
+    public function complete(string $notes) { ... }
+}
+```
+
+---
+
+## 🧪 Estratégia de Testes (Expandido)
+
+### Unit Tests (Models)
+
+```php
+class MachineTest extends TestCase {
+    public function test_machine_can_be_created() { ... }
+    public function test_machine_has_many_alerts() { ... }
+    public function test_operational_scope_works() { ... }
+    public function test_critical_scope_filters_correctly() { ... }
+}
+
+class ServiceOrderTest extends TestCase {
+    public function test_service_order_can_be_started() { ... }
+    public function test_service_order_can_be_completed() { ... }
+    public function test_is_open_returns_true_when_status_open() { ... }
+    public function test_is_critical_returns_true_when_priority_critical() { ... }
+}
+```
+
+### Feature Tests (Resources)
+
+```php
+class MachineResourceTest extends TestCase {
+    public function test_admin_can_create_machine() { ... }
+    public function test_gerente_can_edit_machine() { ... }
+    public function test_tecnico_cannot_create_machine() { ... }
+    public function test_operador_cannot_edit_machine() { ... }
+}
+
+class ServiceOrderResourceTest extends TestCase {
+    public function test_gerente_can_create_service_order() { ... }
+    public function test_tecnico_cannot_assign_to_other_tecnico() { ... }
+    public function test_service_order_state_transitions() { ... }
+}
+```
+
+---
+
+## 🚀 Inicialização do Projeto (Setup)
+
+```bash
+# 1. Clone repo
+git clone <repo> maintsys
+cd maintsys
+
+# 2. Setup Laravel
+composer install
+cp .env.example .env
+php artisan key:generate
+
+# 3. Database
+php artisan migrate:fresh --seed
+
+# 4. Instalar Filament
+composer require filament/filament
+php artisan filament:install
+
+# 5. Instalar Spatie Permission
+composer require spatie/laravel-permission
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+php artisan migrate
+
+# 6. Setup yarn/npm
+npm install
+npm run dev
+
+# 7. Build para production
+npm run build
+
+# 8. Test
+php artisan test
+
+# 9. Serve
+php artisan serve
+# Visit: http://localhost:8000/admin
+# Login: admin@maintsys.com / password
+```
+
+---
+
+## 📊 Checklist por Etapa
+
+### Phase 1: Database & Models
+- [ ] Migrations em ordem
+- [ ] Models com relationships
+- [ ] Scopes adicionados
+- [ ] Boot hooks implementados
+- [ ] Tests unitários passam
+
+### Phase 2: Resources
+- [ ] MachineResource funcionando
+- [ ] ServiceOrderResource com actions
+- [ ] MaintenanceLogResource CRUD
+- [ ] UserResource + Roles
+- [ ] StatusAlertResource com toggle
+
+### Phase 3: Authorization
+- [ ] Spatie roles criados (4)
+- [ ] Policies implementadas
+- [ ] canCreate/Edit/Delete no resource
+- [ ] Field authorization (form)
+- [ ] Tests de permissão
+
+### Phase 4: Dashboard
+- [ ] 4 Stats cards
+- [ ] RecentServiceOrders widget
+- [ ] CriticalAlerts widget
+- [ ] MaintenanceLogs widget
+- [ ] Real-time updates
+
+### Phase 5: Integration & Tests
+- [ ] Unit tests 80%+
+- [ ] Feature tests passam
+- [ ] RBAC matrix validada
+- [ ] Alertas funcionam
+- [ ] Performance aceitável
+
+---
+
+## 📞 Referências & Documentação
+
+**Documentos Principais:**
+- [[_Documentação/LEVANTAMENTO-REQUISITOS]] — Especificação completa de requisitos
+- [[_Documentação/README]] — Visão geral
+- [[_Referência/Quick-Reference]] — Code snippets prontos
+
+**Visual & Fluxos:**
+- [[_Canvas/MaintSys-Overview.canvas]] — Mapa geral
+- [[_Fluxogramas/]] — Todos os flowcharts
+- [[_Documentação/DIAGRAMAS]] — Índice de diagramas
+
+**Implementação:**
+- [[_Documentação/07-Checklist]] — Passo-a-passo
+- [[_Referência/INDEX]] — Busca por tópico
+
+---
+
+## 📊 Métricas e KPIs
+
+| Métrica | Target | Method |
+|---------|--------|--------|
+| Test Coverage | >80% | `php artisan test --coverage` |
+| Code Review Time | <24h | Pull request SLA |
+| Deploy Frequency | 1-2x/day | CI/CD pipeline |
+| Mean Time to Recovery | <1h | Alert + oncall rotation |
+| Bug Escape Rate | <2% | QA + staging tests |
+| Performance (Dashboard) | <2s | Frontend profiling |
+| RBAC Accuracy | 100% | Authorization tests |
+
+---
+
+## 🚀 Go-Live Checklist
+
+- [ ] Unit tests 80%+ ✅
+- [ ] Feature tests passam ✅
+- [ ] Code review aprovado ✅
+- [ ] Security audit passado ✅
+- [ ] Performance OK (<2s) ✅
+- [ ] Documentação completa ✅
+- [ ] Backup strategy testado ✅
+- [ ] Monitoring setup ✅
+- [ ] Alert notifications working ✅
+- [ ] RBAC matrix validated ✅
+- [ ] Error handling tested ✅
+- [ ] Database optimization ✅
+- [ ] Admin training completo ✅
+
+---
+
 *Metodologia de Desenvolvimento — MaintSys v1.0*
-*Pronto para Implementação*
+*Documento Master com Workflows, Padrões, Processos*
+*Inclui: Ciclos, Testes, Git, OWASP, Performance, Deployment*
 *2026-04-03*

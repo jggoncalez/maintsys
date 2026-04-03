@@ -579,16 +579,381 @@ Tabela com últimas 5 O.S. abertas:
 
 ---
 
-## 📞 Referências
+## 🏗️ Estrutura de Arquitetura
 
-- [[_Documentação/README]] — Overview
-- [[_Documentação/01-Requisitos]] — Este arquivo
-- [[_Documentação/02-Arquitetura]] — Arquitetura
-- [[_Documentação/07-Checklist]] — Implementação
-- [[_Fluxogramas/]] — Todos os fluxos
+### Visão em Camadas
+
+```
+┌─────────────────────────────────────────────┐
+│          FILAMENT DASHBOARD (UI)            │
+│  - Machines | ServiceOrders | Alerts        │
+└─────────────────────────────────────────────┘
+                     ↓
+┌─────────────────────────────────────────────┐
+│       LARAVEL 11 (Controllers/Actions)      │
+│  - Resources, Relation Managers, Widgets    │
+└─────────────────────────────────────────────┘
+                     ↓
+┌─────────────────────────────────────────────┐
+│         ELOQUENT MODELS + TRAITS            │
+│  - Scopes, Boot hooks, Relationships       │
+└─────────────────────────────────────────────┘
+                     ↓
+┌─────────────────────────────────────────────┐
+│    DATABASE (MySQL) + Migrations            │
+│  - 6 tabelas principais + índices           │
+└─────────────────────────────────────────────┘
+```
+
+### Diretório de Estrutura
+
+```
+app/
+├── Models/
+│   ├── Machine.php
+│   ├── ServiceOrder.php
+│   ├── MaintenanceLog.php
+│   ├── MachineReading.php
+│   └── StatusAlert.php
+├── Filament/
+│   └── Resources/
+│       ├── MachineResource.php
+│       ├── UserResource.php
+│       ├── ServiceOrderResource.php
+│       ├── MaintenanceLogResource.php
+│       └── StatusAlertResource.php
+├── Filament/Widgets/
+│   ├── StatsOverviewWidget.php
+│   ├── RecentServiceOrdersWidget.php
+│   ├── CriticalAlertsWidget.php
+│   └── MaintenanceLogWidget.php
+└── Policies/
+    ├── MachinePolicy.php
+    ├── ServiceOrderPolicy.php
+    └── StatusAlertPolicy.php
+
+database/
+├── migrations/
+├── seeders/
+└── factories/
+```
+
+---
+
+## 🗄️ Schema Detalhado do Banco de Dados
+
+### Tabela: `machines`
+
+```sql
+CREATE TABLE machines (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    serial_number VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    model VARCHAR(100) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    status ENUM('operational','maintenance','critical','offline') DEFAULT 'operational',
+    installed_at DATE NOT NULL,
+    description TEXT NULLABLE,
+    image VARCHAR(255) NULLABLE,
+    last_reading_at TIMESTAMP NULLABLE,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+
+    INDEX idx_status (status),
+    INDEX idx_location (location),
+    UNIQUE KEY uk_serial_number (serial_number)
+);
+```
+
+**Scopes:**
+- `scopeOperational()` — status = 'operational'
+- `scopeInMaintenance()` — status = 'maintenance'
+- `scopeCritical()` — status = 'critical'
+- `scopeOffline()` — status = 'offline'
+
+**Boot Hook:** Ao mudar `status`, cria StatusAlert + notif
+
+---
+
+### Tabela: `service_orders`
+
+```sql
+CREATE TABLE service_orders (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    machine_id BIGINT UNSIGNED NOT NULL,
+    technician_id BIGINT UNSIGNED NOT NULL,
+    created_by BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    type ENUM('preventive','corrective') NOT NULL,
+    priority ENUM('low','medium','high','critical') DEFAULT 'medium',
+    status ENUM('open','in_progress','completed','cancelled') DEFAULT 'open',
+    started_at TIMESTAMP NULLABLE,
+    completed_at TIMESTAMP NULLABLE,
+    resolution_notes TEXT NULLABLE,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+
+    FOREIGN KEY (machine_id) REFERENCES machines(id) ON DELETE CASCADE,
+    FOREIGN KEY (technician_id) REFERENCES users(id) ON DELETE RESTRICT,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE RESTRICT,
+
+    INDEX idx_machine_id (machine_id),
+    INDEX idx_technician_id (technician_id),
+    INDEX idx_status (status),
+    INDEX idx_type (type)
+);
+```
+
+**Métodos:**
+- `isOpen()` — status === 'open'
+- `isCritical()` — priority === 'critical'
+- `complete(string $notes)` — atualiza completed_at e resolution_notes
+- `start()` — status = in_progress, started_at = now()
+
+---
+
+### Tabela: `maintenance_logs`
+
+```sql
+CREATE TABLE maintenance_logs (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    machine_id BIGINT UNSIGNED NOT NULL,
+    service_order_id BIGINT UNSIGNED NULLABLE,
+    user_id BIGINT UNSIGNED NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    defect_type VARCHAR(100) NULLABLE,
+    logged_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+
+    FOREIGN KEY (machine_id) REFERENCES machines(id) ON DELETE CASCADE,
+    FOREIGN KEY (service_order_id) REFERENCES service_orders(id) ON DELETE SET NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT,
+
+    INDEX idx_machine_id (machine_id),
+    INDEX idx_defect_type (defect_type),
+    INDEX idx_logged_at (logged_at)
+);
+```
+
+**Exemplos de action:** "Troca de correia", "Lubrificação", "Reparo motor"
+
+---
+
+### Tabela: `machine_readings`
+
+```sql
+CREATE TABLE machine_readings (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    machine_id BIGINT UNSIGNED NOT NULL,
+    sensor_key VARCHAR(50) NOT NULL,
+    value DECIMAL(8, 2) NOT NULL,
+    unit VARCHAR(50) NOT NULL,
+    read_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+
+    FOREIGN KEY (machine_id) REFERENCES machines(id) ON DELETE CASCADE,
+
+    INDEX idx_machine_id (machine_id),
+    INDEX idx_sensor_key (sensor_key),
+    INDEX idx_read_at (read_at)
+);
+```
+
+**Exemplos:** temperature (°C), vibration (mm/s), rpm (RPM), pressure (bar)
+
+---
+
+### Tabela: `status_alerts`
+
+```sql
+CREATE TABLE status_alerts (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    machine_id BIGINT UNSIGNED NOT NULL,
+    triggered_by BIGINT UNSIGNED NULLABLE,
+    previous_status VARCHAR(50) NOT NULL,
+    new_status VARCHAR(50) NOT NULL,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    triggered_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+
+    FOREIGN KEY (machine_id) REFERENCES machines(id) ON DELETE CASCADE,
+    FOREIGN KEY (triggered_by) REFERENCES users(id) ON DELETE SET NULL,
+
+    INDEX idx_machine_id (machine_id),
+    INDEX idx_is_read (is_read),
+    INDEX idx_triggered_at (triggered_at)
+);
+```
+
+---
+
+## 🎨 Filament Resources & UI
+
+### MachineResource
+
+**Tabela (Columns):**
+- serial_number (searchable)
+- name
+- model
+- location
+- status (badge: operational=success, maintenance=warning, critical=danger, offline=gray)
+- installed_at (date)
+- last_reading_at (datetime)
+
+**Formulário (Form):**
+- TextInput: serial_number (required, unique)
+- TextInput: name (required)
+- TextInput: model (required)
+- TextInput: location (required)
+- DatePicker: installed_at (required)
+- Select: status (4 options)
+- Textarea: description
+- FileUpload: image (disk: public, directory: machines)
+
+**Filtros:**
+- by status
+- by location
+- DateRange: installed_at
+
+**Ações:**
+- "Marcar como Crítica" (muda status)
+- "Marcar como Operacional" (muda status)
+
+**RelationManagers:**
+- ServiceOrders
+- MaintenanceLogs
+- MachineReadings
+- StatusAlerts
+
+---
+
+### ServiceOrderResource
+
+**Tabela:**
+- title (searchable)
+- machine (link)
+- type (badge: preventive=info, corrective=warning)
+- priority (badge: low=default, medium=warning, high=important, critical=danger)
+- status (badge: open=info, in_progress=warning, completed=success, cancelled=danger)
+- technician (name)
+- created_at (date)
+
+**Formulário:**
+- TextInput: title (required)
+- Textarea: description (required)
+- Select: machine_id (searchable, required)
+- Select: type (2 options, required)
+- Select: priority (4 options)
+- Select: technician_id (filter by role='tecnico')
+- Select: status (4 options)
+- Textarea: resolution_notes (visible only when status='completed')
+
+**Ações:**
+- "Iniciar O.S." → muda para in_progress
+- "Concluir O.S." → modal com resolution_notes
+
+**Filtros:**
+- by status
+- by type
+- by priority
+- by machine
+- DateRange
+
+---
+
+### MaintenanceLogResource
+
+**Tabela:**
+- machine (link)
+- action (action taken)
+- defect_type (type of defect)
+- user (who registered)
+- logged_at (timestamp)
+
+**Formulário:**
+- Select: machine_id (required)
+- Select: service_order_id (filtrado pela máquina)
+- TextInput: action (required)
+- Textarea: description (required)
+- TextInput: defect_type
+- DateTimePicker: logged_at (default: now())
+
+**Filtros:**
+- by machine
+- by defect_type
+- DateRange: logged_at
+
+---
+
+### StatusAlertResource
+
+**Tabela:**
+- machine (link)
+- message
+- previous_status
+- new_status
+- is_read (Toggle)
+- triggered_at
+
+**Filtros:**
+- by machine
+- by is_read
+- by new_status
+
+---
+
+## 📊 Dashboard Widgets
+
+### StatsOverviewWidget
+
+4 cards:
+- Total Machines (icon: cog)
+- Operational (green, icon: check)
+- In Maintenance (yellow, icon: wrench)
+- Critical (red, icon: alert)
+
+### RecentServiceOrdersWidget
+
+Table: últimas 5 O.S. abertas
+- machine, title, type (badge), priority (badge), technician, created_at
+
+### CriticalAlertsWidget
+
+Table: últimos alertas não lidos
+- machine, message, new_status, triggered_at
+- Ação: Toggle "Marcar como lido"
+
+### MaintenanceLogWidget
+
+Table: últimas 5 logs
+- machine, action, defect_type, user, logged_at
+
+---
+
+## 📞 Referências Cruzadas
+
+**Documentos Relacionados:**
+- [[_Documentação/METODOLOGIA-DESENVOLVIMENTO]] — Workflow, padrões e implementação
+- [[_Fluxogramas/]] — Todos os flowcharts visuais
+- [[_Canvas/MaintSys-Overview.canvas]] — Mapa visual interativo
+- [[_Referência/Quick-Reference]] — Code snippets prontos para copiar
+
+**Fluxogramas Específicos:**
+- [[_Fluxogramas/Fluxo-Autenticacao]] — Login & session
+- [[_Fluxogramas/Fluxo-Ordem-Servico]] — O.S. lifecycle
+- [[_Fluxogramas/Fluxo-Status-Alert]] — Alertas automáticos
+- [[_Fluxogramas/Fluxo-Permissoes]] — Autorização
+- [[_Fluxogramas/Fluxo-MQTT]] — IoT/ESP-32 (futuro)
 
 ---
 
 *Levantamento de Requisitos — MaintSys v1.0*
-*Completo e Pronto para Implementação*
+*Documento Master com Especificação Completa*
+*Inclui: RF, RNF, Stack, Schema, Resources, Dashboard, Casos de Uso*
 *2026-04-03*
