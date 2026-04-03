@@ -9,7 +9,51 @@
 
 ---
 
-## 🎯 Contexto & Justificativa
+---
+
+## 📊 Tabela de Requisitos: Priorização Moscow
+
+### Legenda Moscow
+- **M** = Must Have (Obrigatório)
+- **S** = Should Have (Importante)
+- **C** = Could Have (Desejável)
+- **W** = Won't Have (Futuro/Descartado)
+
+| ID | Descrição | Módulo | Prioridade | Status |
+|----|-----------|--------|-----------|--------|
+| **RF-1** | Autenticação com email + password | Autenticação | **M** | ✅ |
+| **RF-2** | 4 Roles (Admin, Gerente, Técnico, Operador) com permissões | Autorização | **M** | ✅ |
+| **RF-3** | CRUD de Máquinas (serial, status, localização) | Máquinas | **M** | ✅ |
+| **RF-4.1** | Criar Ordem de Serviço (preventiva/corretiva) | O.S. | **M** | ✅ |
+| **RF-4.2** | Técnico inicia O.S. (status open → in_progress) | O.S. | **M** | ✅ |
+| **RF-4.3** | Registrar Maintenance Log (ação, defeito, descrição) | Logs | **M** | ✅ |
+| **RF-4.4** | Concluir O.S. com resolution_notes | O.S. | **M** | ✅ |
+| **RF-5** | Alertas automáticos ao mudar status da máquina | Alertas | **M** | ✅ |
+| **RF-6** | Dashboard com 4 stats cards + widgets | Dashboard | **M** | ✅ |
+| **RF-7** | Leitura de sensores ESP-32 via MQTT | IoT | **W** | 🔜 Fase 4 |
+| **RF-8** | Histórico de manutenção (análise de padrões) | Logs | **S** | ✅ |
+| | | | | |
+| **RNF-1** | Performance: Dashboard <2s | Sistema | **M** | ✅ |
+| **RNF-2** | Escalabilidade: >1000 máquinas | Sistema | **S** | 🔜 Fase 2 |
+| **RNF-3** | Segurança: HTTPS, CSRF, SQL prevention | Segurança | **M** | ✅ |
+| **RNF-4** | Usabilidade: Interface português (pt_BR) | UI/UX | **M** | ✅ |
+| **RNF-5** | Confiabilidade: Validação + constraints | Dados | **M** | ✅ |
+| **RNF-6** | Manutenibilidade: 80%+ test coverage | QA | **S** | ✅ |
+| **RNF-7** | Disponibilidade: Uptime >99.5% | Infra | **C** | 🔜 Prod |
+
+### Resumo Moscow
+
+| Categoria | Quantidade | Status |
+|-----------|-----------|--------|
+| **Must Have (M)** | 14 | ✅ |
+| **Should Have (S)** | 3 | ✅/🔜 |
+| **Could Have (C)** | 1 | 🔜 |
+| **Won't Have (W)** | 1 | 🔜 |
+| **TOTAL** | **19** | |
+
+---
+
+
 
 ### 📊 Problema a Resolver
 
