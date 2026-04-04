@@ -16,8 +16,8 @@ class SeedTestData extends Seeder
     public function run(): void
     {
         // Get test users
-        $admin = User::where('email', 'admin@example.com')->first();
-        $tecnico = User::where('email', 'tecnico@example.com')->first();
+        $admin = User::where('email', 'admin@maintsys.local')->first();
+        $tecnico = User::where('email', 'tecnico@maintsys.local')->first();
 
         if (!$admin || !$tecnico) {
             $this->command->error('❌ Usuários de teste não encontrados. Execute php artisan db:seed primeiro.');
