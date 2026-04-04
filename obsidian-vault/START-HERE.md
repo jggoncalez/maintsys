@@ -14,8 +14,6 @@ obsidian-vault/
 │   ├── LEVANTAMENTO-REQUISITOS.md ← Requisitos detalhados
 │   ├── METODOLOGIA-DESENVOLVIMENTO.md ← Metodologia de dev
 │   ├── DIAGRAMAS.md           ← Índice de fluxogramas
-│   ├── ESTRUTURA.md           ← Estrutura da documentação
-│   ├── RESUMO.md              ← O que foi criado
 │   │
 │   ├── 01-Requisitos.md
 │   ├── 02-Arquitetura.md
@@ -24,7 +22,8 @@ obsidian-vault/
 │   ├── 05-Dashboard.md
 │   ├── 06-Permissões.md
 │   ├── 07-Checklist.md
-│   ├── 08-Diagrama-ER.md
+│   ├── 10-Diagrama-Classes-Mermaid.md
+│   ├── 11-Diagrama-ER-Mermaid.md
 │   ├── Arquitetura-Tecnica.md
 │   └── (...)
 │

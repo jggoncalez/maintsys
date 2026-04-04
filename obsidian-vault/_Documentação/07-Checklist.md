@@ -308,4 +308,4 @@ http://localhost:8000/admin
 
 ---
 
-*[[_Documentação/README]] | [[_Documentação/06-Permissões]] | [[_Documentação/08-Diagrama-ER]]*
+*[[_Documentação/README]] | [[_Documentação/06-Permissões]] | [[_Documentação/11-Diagrama-ER-Mermaid]]*

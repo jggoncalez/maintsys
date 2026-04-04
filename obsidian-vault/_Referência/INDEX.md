@@ -58,7 +58,7 @@ Abra diretamente no Obsidian para ver diagramas visuais:
 
 ### 🗄️ Banco de Dados
 - [[_Documentação/03-Banco-de-Dados]] — Schema SQL completo
-- [[08-Diagrama-ER]] — Mermaid ER diagram
+- [[11-Diagrama-ER-Mermaid]] — Mermaid ER diagram
 - [[Quick-Reference]] — Migrations ready
 
 ### 🎨 Interface & Dashboard
@@ -70,7 +70,7 @@ Abra diretamente no Obsidian para ver diagramas visuais:
 ### 🏗️ Arquitetura & Design
 - [[_Documentação/02-Arquitetura]] — System design
 - [[Arquitetura-Tecnica]] — Stack em camadas
-- [[08-Diagrama-ER]] — Relações entre tabelas
+- [[11-Diagrama-ER-Mermaid]] — Relações entre tabelas
 - [[_Documentação/DIAGRAMAS]] — Todos os diagramas
 
 ### ✅ Implementação & Checklist
@@ -121,7 +121,7 @@ Abra diretamente no Obsidian para ver diagramas visuais:
 - **Alertas** — [[_Fluxogramas/Fluxo-Status-Alert]], [[_Documentação/05-Dashboard]]
 
 ### B
-- **Banco de dados** — [[_Documentação/03-Banco-de-Dados]], [[08-Diagrama-ER]]
+- **Banco de dados** — [[_Documentação/03-Banco-de-Dados]], [[11-Diagrama-ER-Mermaid]]
 - **Boot hooks** — [[_Documentação/02-Arquitetura]], [[Quick-Reference]]
 
 ### C
@@ -131,10 +131,10 @@ Abra diretamente no Obsidian para ver diagramas visuais:
 
 ### D
 - **Dashboard** — [[_Documentação/05-Dashboard]], [[_Documentação/04-Filament-Resources]]
-- **Diagramas** — [[_Documentação/DIAGRAMAS]], [[08-Diagrama-ER]]
+- **Diagramas** — [[_Documentação/DIAGRAMAS]], [[11-Diagrama-ER-Mermaid]]
 
 ### E
-- **ER Diagram** — [[08-Diagrama-ER]]
+- **ER Diagram** — [[11-Diagrama-ER-Mermaid]]
 - **Estrutura** — [[ESTRUTURA]]
 
 ### F
@@ -185,7 +185,7 @@ Abra diretamente no Obsidian para ver diagramas visuais:
 ### 📊 Diagramas & Flowcharts
 - [[_Canvas/MaintSys-Overview]] — Mapa visual
 - [[_Documentação/DIAGRAMAS]] — Índice de fluxos
-- [[08-Diagrama-ER]] — ER diagram
+- [[11-Diagrama-ER-Mermaid]] — ER diagram
 - [[Fluxo-*]] — Flowcharts específicos
 - [[Arquitetura-Tecnica]] — Architecture diagrams
 
@@ -217,7 +217,7 @@ Abra diretamente no Obsidian para ver diagramas visuais:
 
 ### 🗄️ **Fase 2: Banco de Dados**
 - [[_Documentação/03-Banco-de-Dados]] ← Migrations
-- [[08-Diagrama-ER]] ← Relações
+- [[11-Diagrama-ER-Mermaid]] ← Relações
 - [[Quick-Reference]] ← Code
 - [[_Documentação/07-Checklist]] ← Tarefas
 
@@ -268,7 +268,7 @@ Abra diretamente no Obsidian para ver diagramas visuais:
 ```
 1. [[Arquitetura-Tecnica]] — System design
 2. [[_Fluxogramas/Fluxo-Permissoes]] — Segurança
-3. [[08-Diagrama-ER]] — Queries
+3. [[11-Diagrama-ER-Mermaid]] — Queries
 4. [[_Fluxogramas/Fluxo-MQTT]] — Integrações
 ```
 
@@ -289,7 +289,7 @@ Abra diretamente no Obsidian para ver diagramas visuais:
 → [[_Fluxogramas/Fluxo-Permissoes]] + [[_Documentação/06-Permissões]]
 
 ### "Qual é o schema BD?"
-→ [[_Documentação/03-Banco-de-Dados]] + [[08-Diagrama-ER]]
+→ [[_Documentação/03-Banco-de-Dados]] + [[11-Diagrama-ER-Mermaid]]
 
 ### "Como makeAssets Filament?"
 → [[_Documentação/04-Filament-Resources]] + [[Quick-Reference]]
@@ -357,7 +357,7 @@ Palavras-chave úteis:
 │
 ├─ 📋 01-Requisitos
 ├─ 🏗️ 02-Arquitetura
-├─ 🗄️ 03-Banco-de-Dados → 08-Diagrama-ER
+├─ 🗄️ 03-Banco-de-Dados → 11-Diagrama-ER-Mermaid
 ├─ 🎨 04-Filament-Resources
 ├─ 📊 05-Dashboard
 ├─ 🛡️ 06-Permissões

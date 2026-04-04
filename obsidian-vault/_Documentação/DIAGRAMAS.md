@@ -151,9 +151,9 @@ Todos os fluxogramas, diagramas ER e arquitetura em um único lugar.
 
 ```
 ┌─────────────────────────────────────┐
-│   [[_Documentação/08-Diagrama-ER]]       │
+│   [[_Documentação/11-Diagrama-ER-Mermaid]]       │
 │                                       │
-│  • 6 Tabelas principais             │
+│  • 8 Tabelas com Spatie             │
 │  • Relacionamentos Eloquent         │
 │  • Índices e performance            │
 │  • Constraints e integridade        │
@@ -163,9 +163,9 @@ Todos os fluxogramas, diagramas ER e arquitetura em um único lugar.
 ```
 
 **Mermaid ER Diagram:**
-- Entities: User, Machine, ServiceOrder, MaintenanceLog, MachineReading, StatusAlert
-- Relationships: hasMany, belongsTo
-- FK constraints, indexes
+- Entities: User, Role, Permission, Machine, ServiceOrder, MaintenanceLog, MachineReading, StatusAlert
+- Relationships: hasMany, belongsTo, belongsToMany
+- FK constraints, indexes, delete actions
 
 ---
 
@@ -291,6 +291,66 @@ flowchart LR
 
 ---
 
+## 📚 Mapeamento OOP ↔ Banco de Dados
+
+### Estrutura em Camadas
+
+```
+┌─────────────────────────────────────────┐
+│        LAYER: Presentation              │
+│  (Filament Resources + Widgets)         │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│    LAYER: Application/Controllers       │
+│  (Request Handling - Filament)          │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│    LAYER: Domain/Models                 │
+│  - User, Machine, ServiceOrder, etc.    │
+│  - Relationships & Methods              │
+│  - Business Logic                       │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│    LAYER: Infrastructure/Database       │
+│  - Migrations, Seeders                  │
+│  - Schema (ER Diagram)                  │
+│  - Indexes, Constraints                 │
+└─────────────────────────────────────────┘
+```
+
+### Modelo → Tabela
+
+**User Model → users Table**
+```
+Código (Eloquent) → BD (SQL)
+├── hasMany(ServiceOrder) → users.id ← service_orders.technician_id
+├── hasMany(ServiceOrder) → users.id ← service_orders.created_by
+├── hasMany(MaintenanceLog) → users.id ← maintenance_logs.user_id
+└── belongsToMany(Role) → N:N via role_user (pivot)
+```
+
+**Machine Model → machines Table**
+```
+├── hasMany(ServiceOrder) → FK machine_id (CASCADE)
+├── hasMany(MaintenanceLog) → FK machine_id (CASCADE)
+├── hasMany(MachineReading) → FK machine_id (CASCADE)
+├── hasMany(StatusAlert) → FK machine_id (CASCADE)
+└── scopeOperational(), scopeCritical() → INDEX on status
+```
+
+**ServiceOrder Model → service_orders Table**
+```
+├── belongsTo(Machine) → FK machine_id (CASCADE)
+├── belongsTo(User, 'technician_id') → FK (RESTRICT)
+├── belongsTo(User, 'created_by') → FK (RESTRICT)
+└── hasMany(MaintenanceLog) → FK service_order_id (SET NULL)
+```
+
+---
+
 ## 🚀 Próximos Passos
 
 1. **Revisar cada fluxo** com a equipe
@@ -301,7 +361,7 @@ flowchart LR
 
 ---
 
-*Documentação de Fluxos - MaintSys v1.0*
+*Documentação de Fluxos & Diagramas - MaintSys v1.0*
 *Atualizado: 2026-04-03*
 
 ---

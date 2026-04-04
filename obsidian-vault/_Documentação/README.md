@@ -28,7 +28,7 @@
 | Documento | Conteúdo |
 |-----------|----------|
 | [[_Documentação/03-Banco-de-Dados]] | Schema SQL, migrations, índices |
-| [[_Documentação/08-Diagrama-ER]] | Mermaid ER, relacionamentos, queries |
+| [[_Documentação/11-Diagrama-ER-Mermaid]] | Mermaid ER, relacionamentos, queries |
 
 ### 3️⃣ **Filament & UI**
 | Documento | Conteúdo |
@@ -61,7 +61,7 @@
 
 ### 👤 Você é **Arquiteto**?
 ```
-Leia: [[_Documentação/02-Arquitetura]] → [[_Documentação/Arquitetura-Tecnica]] → [[_Documentação/08-Diagrama-ER]]
+Leia: [[_Documentação/02-Arquitetura]] → [[_Documentação/Arquitetura-Tecnica]] → [[_Documentação/11-Diagrama-ER-Mermaid]]
 ```
 
 ### 👨‍💻 Você é **Desenvolvedor**?
@@ -132,7 +132,6 @@ vault/
 ├── README.md ........................... Este arquivo
 ├── CANVAS.md ........................... 🎨 Mapa visual interativo
 ├── DIAGRAMAS.md ........................ 📊 Índice de flowcharts
-├── ESTRUTURA.md ........................ 🗂️ Estrutura de docs
 │
 ├── 01-Requisitos.md .................... 📋 Contexto & objetivos
 ├── 02-Arquitetura.md ................... 🏗️ Design & padrões
@@ -141,7 +140,8 @@ vault/
 ├── 05-Dashboard.md ..................... 📊 Widgets & visualizações
 ├── 06-Permissões.md .................... 🛡️ Spatie RBAC
 ├── 07-Checklist.md ..................... ✅ Implementação step-by-step
-├── 08-Diagrama-ER.md ................... 📈 Mermaid ER diagram
+├── 10-Diagrama-Classes-Mermaid.md ....... 📊 UML class diagram (Mermaid)
+├── 11-Diagrama-ER-Mermaid.md ............ 📈 Mermaid ER diagram
 │
 ├── Arquitetura-Tecnica.md .............. 🏢 Stack & layers
 ├── Fluxo-Autenticacao.md ............... 🔐 Login & session
@@ -162,7 +162,7 @@ vault/
 ```
 1. Estude: [[_Documentação/01-Requisitos]] + [[_Documentação/02-Arquitetura]]
 2. Prepare: [[_Documentação/03-Banco-de-Dados]] (criar migrations)
-3. Modele: [[_Documentação/08-Diagrama-ER]] (validar schema)
+3. Modele: [[_Documentação/11-Diagrama-ER-Mermaid]] (validar schema)
 4. Buildar: [[_Documentação/04-Filament-Resources]] (CRUD)
 5. Proteja: [[_Documentação/06-Permissões]] (RBAC)
 6. Visualize: [[_Documentação/05-Dashboard]] (widgets)

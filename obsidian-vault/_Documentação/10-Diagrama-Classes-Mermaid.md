@@ -4,7 +4,6 @@
 
 ```mermaid
 classDiagram
-    %% ===== AUTHENTICATION & AUTHORIZATION =====
     class User {
         -bigint id (PK)
         -string name
@@ -50,8 +49,6 @@ classDiagram
         +belongsToMany(Role)
         +belongsToMany(User)
     }
-
-    %% ===== ENUMS =====
     class Status {
         <<enum>>
         operational
@@ -81,8 +78,6 @@ classDiagram
         completed
         cancelled
     }
-
-    %% ===== MAIN DOMAIN MODELS =====
     class Machine {
         -bigint id (PK)
         -string serial_number (UK)
@@ -181,16 +176,14 @@ classDiagram
         +belongsTo(Machine)
         +belongsTo(User, 'triggered_by')
     }
-
-    %% ===== RELATIONSHIPS =====
     User "1" --> "N" ServiceOrder : technician_id
     User "1" --> "N" ServiceOrder : created_by
     User "1" --> "N" MaintenanceLog : user_id
     User "1" --> "N" StatusAlert : triggered_by
 
-    User "N" --> "N" Role : :belongsToMany
-    Role "N" --> "N" Permission : :belongsToMany
-    User "N" --> "N" Permission : :can_through_role
+    User "N" --> "N" Role : belongsToMany
+    Role "N" --> "N" Permission : belongsToMany
+    User "N" --> "N" Permission : can_through_role
 
     Machine "1" --> "N" ServiceOrder : machine_id
     Machine "1" --> "N" MaintenanceLog : machine_id
@@ -199,7 +192,6 @@ classDiagram
 
     ServiceOrder "1" --> "N" MaintenanceLog : service_order_id
 
-    %% Enum relationships
     Machine "1" --> "1" Status : uses
     ServiceOrder "1" --> "1" OSType : uses
     ServiceOrder "1" --> "1" Priority : uses
@@ -288,19 +280,19 @@ User::hasRole()           // Check Spatie role
 
 ## 📊 Multiplicidade das Relações
 
-| Source | → | Target | Relation Type | SQL FK | Delete |
-|--------|---|--------|---|---|---|
-| User | 1:N | ServiceOrder (tech) | HasMany | technician_id | RESTRICT |
-| User | 1:N | ServiceOrder (creator) | HasMany | created_by | RESTRICT |
-| User | 1:N | MaintenanceLog | HasMany | user_id | RESTRICT |
-| User | 1:N | StatusAlert | HasMany | triggered_by | SET NULL |
-| Machine | 1:N | ServiceOrder | HasMany | machine_id | CASCADE |
-| Machine | 1:N | MaintenanceLog | HasMany | machine_id | CASCADE |
-| Machine | 1:N | MachineReading | HasMany | machine_id | CASCADE |
-| Machine | 1:N | StatusAlert | HasMany | machine_id | CASCADE |
-| ServiceOrder | 1:N | MaintenanceLog | HasMany | service_order_id | SET NULL |
-| User | N:N | Role | BelongsToMany | (pivot: role_user) | Detach |
-| Role | N:N | Permission | BelongsToMany | (pivot: role_has_permissions) | Detach |
+| Source       | →   | Target                 | Relation Type | SQL FK                        | Delete   |
+| ------------ | --- | ---------------------- | ------------- | ----------------------------- | -------- |
+| User         | 1:N | ServiceOrder (tech)    | HasMany       | technician_id                 | RESTRICT |
+| User         | 1:N | ServiceOrder (creator) | HasMany       | created_by                    | RESTRICT |
+| User         | 1:N | MaintenanceLog         | HasMany       | user_id                       | RESTRICT |
+| User         | 1:N | StatusAlert            | HasMany       | triggered_by                  | SET NULL |
+| Machine      | 1:N | ServiceOrder           | HasMany       | machine_id                    | CASCADE  |
+| Machine      | 1:N | MaintenanceLog         | HasMany       | machine_id                    | CASCADE  |
+| Machine      | 1:N | MachineReading         | HasMany       | machine_id                    | CASCADE  |
+| Machine      | 1:N | StatusAlert            | HasMany       | machine_id                    | CASCADE  |
+| ServiceOrder | 1:N | MaintenanceLog         | HasMany       | service_order_id              | SET NULL |
+| User         | N:N | Role                   | BelongsToMany | (pivot: role_user)            | Detach   |
+| Role         | N:N | Permission             | BelongsToMany | (pivot: role_has_permissions) | Detach   |
 
 ---
 
