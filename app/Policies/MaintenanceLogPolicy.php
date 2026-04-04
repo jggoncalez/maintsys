@@ -9,6 +9,14 @@ use Illuminate\Auth\Access\Response;
 class MaintenanceLogPolicy
 {
     /**
+     * Allow admin to bypass all checks
+     */
+    public function before(User $user): ?bool
+    {
+        return $user->hasRole('admin') ? true : null;
+    }
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
@@ -37,8 +45,7 @@ class MaintenanceLogPolicy
      */
     public function update(User $user, $model): bool
     {
-        // Only admin can update maintenance logs
-        return $user->hasRole('admin') && $user->hasPermissionTo('update_maintenance_logs');
+        return $user->hasPermissionTo('update_maintenance_logs');
     }
 
     /**
@@ -46,8 +53,7 @@ class MaintenanceLogPolicy
      */
     public function delete(User $user, $model): bool
     {
-        // Only admin can delete maintenance logs
-        return $user->hasRole('admin') && $user->hasPermissionTo('delete_maintenance_logs');
+        return $user->hasPermissionTo('delete_maintenance_logs');
     }
 
     /**
@@ -55,8 +61,7 @@ class MaintenanceLogPolicy
      */
     public function restore(User $user, $model): bool
     {
-        // Only admin can restore maintenance logs
-        return $user->hasRole('admin') && $user->hasPermissionTo('update_maintenance_logs');
+        return $user->hasPermissionTo('update_maintenance_logs');
     }
 
     /**
@@ -64,7 +69,6 @@ class MaintenanceLogPolicy
      */
     public function forceDelete(User $user, $model): bool
     {
-        // Only admin can permanently delete maintenance logs
-        return $user->hasRole('admin') && $user->hasPermissionTo('delete_maintenance_logs');
+        return $user->hasPermissionTo('delete_maintenance_logs');
     }
 }

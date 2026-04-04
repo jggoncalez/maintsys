@@ -2,18 +2,25 @@
 
 namespace App\Policies;
 
-use App\Models\MachineReading;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
 class MachineReadingPolicy
 {
     /**
+     * Allow admin to bypass all checks
+     */
+    public function before(User $user): ?bool
+    {
+        return $user->hasRole('admin') ? true : null;
+    }
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_machine_readings');
+        return true; // Operador can view
     }
 
     /**
@@ -21,7 +28,7 @@ class MachineReadingPolicy
      */
     public function view(User $user, $model): bool
     {
-        return $user->hasPermissionTo('view_machine_readings');
+        return true; // Operador can view
     }
 
     /**

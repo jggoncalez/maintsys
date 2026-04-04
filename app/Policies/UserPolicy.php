@@ -8,11 +8,19 @@ use Illuminate\Auth\Access\Response;
 class UserPolicy
 {
     /**
+     * Allow admin to bypass all checks
+     */
+    public function before(User $user): ?bool
+    {
+        return $user->hasRole('admin') ? true : null;
+    }
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_users');
+        return false;
     }
 
     /**
@@ -20,7 +28,7 @@ class UserPolicy
      */
     public function view(User $user, $model): bool
     {
-        return $user->hasPermissionTo('view_users');
+        return false;
     }
 
     /**
@@ -28,7 +36,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create_users');
+        return false;
     }
 
     /**
@@ -36,7 +44,7 @@ class UserPolicy
      */
     public function update(User $user, $model): bool
     {
-        return $user->hasPermissionTo('update_users');
+        return false;
     }
 
     /**
@@ -44,7 +52,7 @@ class UserPolicy
      */
     public function delete(User $user, $model): bool
     {
-        return $user->hasPermissionTo('delete_users');
+        return false;
     }
 
     /**
@@ -52,7 +60,7 @@ class UserPolicy
      */
     public function restore(User $user, $model): bool
     {
-        return $user->hasPermissionTo('update_users');
+        return false;
     }
 
     /**
@@ -60,6 +68,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, $model): bool
     {
-        return $user->hasPermissionTo('delete_users');
+        return false;
     }
 }

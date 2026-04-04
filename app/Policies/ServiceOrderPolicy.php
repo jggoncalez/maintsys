@@ -9,6 +9,14 @@ use Illuminate\Auth\Access\Response;
 class ServiceOrderPolicy
 {
     /**
+     * Allow admin to bypass all checks
+     */
+    public function before(User $user): ?bool
+    {
+        return $user->hasRole('admin') ? true : null;
+    }
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
@@ -45,11 +53,6 @@ class ServiceOrderPolicy
         // Técnico can only update their own service orders
         if ($user->hasRole('tecnico')) {
             return $user->hasPermissionTo('update_service_orders') && $model->technician_id === $user->id;
-        }
-
-        // Admin can update any service order
-        if ($user->hasRole('admin')) {
-            return $user->hasPermissionTo('update_service_orders');
         }
 
         return false;

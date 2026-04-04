@@ -9,11 +9,19 @@ use Illuminate\Auth\Access\Response;
 class RolePolicy
 {
     /**
+     * Allow admin to bypass all checks
+     */
+    public function before(User $user): ?bool
+    {
+        return $user->hasRole('admin') ? true : null;
+    }
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -21,7 +29,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -29,7 +37,7 @@ class RolePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -37,7 +45,7 @@ class RolePolicy
      */
     public function update(User $user, Role $role): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -45,7 +53,7 @@ class RolePolicy
      */
     public function delete(User $user, Role $role): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -53,7 +61,7 @@ class RolePolicy
      */
     public function restore(User $user, Role $role): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -61,6 +69,6 @@ class RolePolicy
      */
     public function forceDelete(User $user, Role $role): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 }
