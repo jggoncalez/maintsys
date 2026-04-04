@@ -17,7 +17,7 @@ class RoleAndPermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()['cache']->forget('spatie.permission.cache');
 
-        // Define permissions
+        // Define permissions (Status Alerts are read-only, auto-generated)
         $permissions = [
             // Machines
             'view_machines',
@@ -36,7 +36,7 @@ class RoleAndPermissionSeeder extends Seeder
             'delete_maintenance_logs',
             // Machine Readings
             'view_machine_readings',
-            // Status Alerts
+            // Status Alerts (read-only, auto-generated)
             'view_status_alerts',
             // Users
             'view_users',
@@ -45,18 +45,18 @@ class RoleAndPermissionSeeder extends Seeder
             'delete_users',
         ];
 
-        // Create permissions
+        // Create permissions using Spatie command
         foreach ($permissions as $permission) {
-            Permission::firstOrCreate(['name' => $permission]);
+            Permission::findOrCreate($permission);
         }
 
-        // Create roles and assign permissions
+        // Create roles using Spatie command
         // Admin - Full access
-        $admin = Role::firstOrCreate(['name' => 'admin']);
+        $admin = Role::findOrCreate('admin');
         $admin->syncPermissions($permissions);
 
         // Gerente - Can view and update machines, full service orders, view logs and alerts and users
-        $gerente = Role::firstOrCreate(['name' => 'gerente']);
+        $gerente = Role::findOrCreate('gerente');
         $gerente->syncPermissions([
             'view_machines', 'update_machines',
             'view_service_orders', 'create_service_orders', 'update_service_orders', 'delete_service_orders',
@@ -66,7 +66,7 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
 
         // Técnico - Can view machines, service orders (create/update own), create logs, view alerts and users
-        $tecnico = Role::firstOrCreate(['name' => 'tecnico']);
+        $tecnico = Role::findOrCreate('tecnico');
         $tecnico->syncPermissions([
             'view_machines',
             'view_service_orders', 'create_service_orders', 'update_service_orders',
@@ -76,7 +76,7 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
 
         // Operador - Read-only access
-        $operador = Role::firstOrCreate(['name' => 'operador']);
+        $operador = Role::findOrCreate('operador');
         $operador->syncPermissions([
             'view_machines',
             'view_service_orders',

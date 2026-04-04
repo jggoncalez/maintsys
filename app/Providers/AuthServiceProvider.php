@@ -11,10 +11,14 @@ use App\Models\User;
 use App\Policies\MachinePolicy;
 use App\Policies\MaintenanceLogPolicy;
 use App\Policies\MachineReadingPolicy;
+use App\Policies\PermissionPolicy;
+use App\Policies\RolePolicy;
 use App\Policies\ServiceOrderPolicy;
 use App\Policies\StatusAlertPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,6 +34,8 @@ class AuthServiceProvider extends ServiceProvider
         MachineReading::class => MachineReadingPolicy::class,
         StatusAlert::class => StatusAlertPolicy::class,
         User::class => UserPolicy::class,
+        Role::class => RolePolicy::class,
+        Permission::class => PermissionPolicy::class,
     ];
 
     /**

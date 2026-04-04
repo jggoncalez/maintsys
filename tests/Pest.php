@@ -14,6 +14,7 @@ beforeEach(function () {
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'gerente']);
         Role::create(['name' => 'tecnico']);
+        Role::create(['name' => 'operador']);
     }
 })->in('Feature');
 

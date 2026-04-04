@@ -37,7 +37,22 @@ class ServiceOrderPolicy
      */
     public function update(User $user, $model): bool
     {
-        return $user->hasPermissionTo('update_service_orders');
+        // Gerente can update any service order
+        if ($user->hasRole('gerente')) {
+            return $user->hasPermissionTo('update_service_orders');
+        }
+
+        // Técnico can only update their own service orders
+        if ($user->hasRole('tecnico')) {
+            return $user->hasPermissionTo('update_service_orders') && $model->technician_id === $user->id;
+        }
+
+        // Admin can update any service order
+        if ($user->hasRole('admin')) {
+            return $user->hasPermissionTo('update_service_orders');
+        }
+
+        return false;
     }
 
     /**
