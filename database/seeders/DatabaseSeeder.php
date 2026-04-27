@@ -16,28 +16,20 @@ class DatabaseSeeder extends Seeder
         // Create roles and permissions
         $this->call(RoleAndPermissionSeeder::class);
 
-        $admin = User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@maintsys.local',
-        ]);
-        $admin->assignRole('admin');
+        $users = [
+            ['name' => 'Admin',    'email' => 'admin@maintsys.local',    'role' => 'admin'],
+            ['name' => 'Gerente',  'email' => 'gerente@maintsys.local',  'role' => 'gerente'],
+            ['name' => 'Técnico',  'email' => 'tecnico@maintsys.local',  'role' => 'tecnico'],
+            ['name' => 'Operador', 'email' => 'operador@maintsys.local', 'role' => 'operador'],
+        ];
 
-        $manager = User::factory()->create([
-            'name' => 'Gerente',
-            'email' => 'gerente@maintsys.local',
-        ]);
-        $manager->assignRole('gerente');
-
-        $tech = User::factory()->create([
-            'name' => 'Técnico',
-            'email' => 'tecnico@maintsys.local',
-        ]);
-        $tech->assignRole('tecnico');
-
-        $operator = User::factory()->create([
-            'name' => 'Operador',
-            'email' => 'operador@maintsys.local',
-        ]);
-        $operator->assignRole('operador');
+        foreach ($users as $userData) {
+            $user = User::create([
+                'name'     => $userData['name'],
+                'email'    => $userData['email'],
+                'password' => bcrypt('password'),
+            ]);
+            $user->assignRole($userData['role']);
+        }
     }
 }

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan *)",
+      "Bash(grep -r 'protected static.*$label\\\\|protected static.*$pluralLabel\\\\|protected static.*$navigationGroup' /c/laragon/www/maintsys/app/Filament/Resources/)",
+      "Bash(grep -r '$table->' c:/laragon/www/maintsys/database/migrations '--include=*.php')",
+      "Bash(xargs grep *)",
+      "Bash(cat)",
+      "Read(//tmp/**)"
+    ]
+  }
+}

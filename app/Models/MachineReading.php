@@ -17,10 +17,13 @@ class MachineReading extends Model
         'read_at',
     ];
 
-    protected $casts = [
-        'read_at' => 'datetime',
-        'value' => 'decimal:2',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'read_at' => 'datetime',
+            'value' => 'decimal:2',
+        ];
+    }
 
     // Relationships
     public function machine(): BelongsTo

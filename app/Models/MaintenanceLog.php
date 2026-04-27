@@ -19,9 +19,12 @@ class MaintenanceLog extends Model
         'logged_at',
     ];
 
-    protected $casts = [
-        'logged_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'logged_at' => 'datetime',
+        ];
+    }
 
     // Relationships
     public function machine(): BelongsTo

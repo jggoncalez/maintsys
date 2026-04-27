@@ -22,10 +22,13 @@ class Machine extends Model
         'last_reading_at',
     ];
 
-    protected $casts = [
-        'installed_at' => 'date',
-        'last_reading_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'installed_at' => 'date',
+            'last_reading_at' => 'datetime',
+        ];
+    }
 
     /**
      * Boot method to handle model events
@@ -49,14 +52,10 @@ class Machine extends Model
                     'triggered_at' => now(),
                 ]);
 
-                // Send notification to all users
-                $users = \App\Models\User::all();
-                foreach ($users as $user) {
-                    Notification::make()
-                        ->title('Alerta de Status de Máquina')
-                        ->body("Máquina '{$model->name}' alterou status para {$newStatus}")
-                        ->sendToDatabase($user);
-                }
+                Notification::make()
+                    ->title('Alerta de Status de Máquina')
+                    ->body("Máquina '{$model->name}' alterou status para {$newStatus}")
+                    ->sendToDatabase(\App\Models\User::all());
             }
         });
     }

@@ -24,10 +24,13 @@ class ServiceOrder extends Model
         'resolution_notes',
     ];
 
-    protected $casts = [
-        'started_at' => 'datetime',
-        'completed_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'started_at' => 'datetime',
+            'completed_at' => 'datetime',
+        ];
+    }
 
     // Relationships
     public function machine(): BelongsTo

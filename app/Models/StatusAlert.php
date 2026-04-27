@@ -19,10 +19,13 @@ class StatusAlert extends Model
         'triggered_at',
     ];
 
-    protected $casts = [
-        'is_read' => 'boolean',
-        'triggered_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'is_read' => 'boolean',
+            'triggered_at' => 'datetime',
+        ];
+    }
 
     // Relationships
     public function machine(): BelongsTo

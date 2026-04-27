@@ -18,8 +18,8 @@ class ServiceOrdersTable
                     ->searchable(),
                 TextColumn::make('technician.name')
                     ->searchable(),
-                TextColumn::make('created_by')
-                    ->numeric()
+                TextColumn::make('creator.name')
+                    ->label('Criado por')
                     ->sortable(),
                 TextColumn::make('title')
                     ->searchable(),
